@@ -1,0 +1,50 @@
+Package: BTYD
+Type: Package
+Title: Implementing BTYD Models With The Log Sum Exp Patch
+Version: 2.4.1
+Authors@R: c(person("Lukasz", "Dziurzynski", role="aut"),
+             person("Edward", "Wadsworth", role="aut"), 
+             person("Peter", "Fader", role="ctb"), 
+             person("Elea", "McDonnell Feit", role="ctb"), 
+             person("Daniel", "McCarthy", role=c("aut","cre","ctb"), email="danielmc@wharton.upenn.edu"),
+             person("Bruce", "Hardie", role="ctb"),
+             person("Arun", "Gopalakrishnan", role="ctb"), 
+             person("Eric", "Schwartz", role="ctb"), 
+             person("Yao", "Zhang", role="ctb"), 
+             person("Gabi", "Huiber", role="ctb"))
+Maintainer: Gabi Huiber <ghuiber@gmail.com>
+URL: ghuiber.github.io
+Description: This package contains functions for data preparation, parameter
+    estimation, scoring, and plotting for the BG/BB, BG/NBD and Pareto/NBD models.
+License: GPL-3
+Collate:
+    'data.R'
+    'BTYD.R'
+    'bgbb.R'
+    'bgnbd.R'
+    'pnbd.R'
+    'dc.R'
+    'spend.R'
+Depends:
+    R(>= 3.5),
+    hypergeo, 
+    optimx, 
+    dplyr
+Imports:
+    Matrix
+Suggests:
+    knitr
+VignetteBuilder: knitr
+Author: Lukasz Dziurzynski [aut],
+        Edward Wadsworth [aut], 
+        Peter Fader [ctb], 
+        Elea McDonnell Feit [ctb], 
+        Daniel McCarthy [aut, cre, ctb], 
+        Bruce Hardie [ctb], 
+        Arun Gopalakrishnan [ctb], 
+        Eric Schwartz [ctb], 
+        Yao Zhang [ctb]
+NeedsCompilation: no
+Encoding: UTF-8
+RoxygenNote: 7.1.1
+Roxygen: list(markdown = TRUE)
