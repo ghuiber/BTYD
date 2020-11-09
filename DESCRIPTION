@@ -1,6 +1,6 @@
 Package: BTYD
 Type: Package
-Title: Implementing BTYD Models With The Log Sum Exp Patch
+Title: Implementing BTYD Models with the Log Sum Exp Patch
 Version: 2.4.1
 Authors@R: c(person("Lukasz", "Dziurzynski", role="aut"),
              person("Edward", "Wadsworth", role="aut"), 

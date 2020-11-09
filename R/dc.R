@@ -198,7 +198,7 @@ dc.compress.cbs <- function(cbs,
 #' # Create event log from file "cdnowElog.csv", which has
 #' # customer IDs in the second column, dates in the third column, and
 #' # sales numbers in the fifth column.
-#' elog <- dc.ReadLines(system.file("data/cdnowElog.csv", package="BTYD2"),2,3,5)
+#' elog <- dc.ReadLines(system.file("data/cdnowElog.csv", package="BTYD"),2,3,5)
 #' 
 #' elog[,"date"] <- as.Date(elog[,"date"], "%Y%m%d")
 #' 
@@ -294,7 +294,7 @@ dc.ElogToCbsCbt <- function(elog,
 #' # Create event log from file "cdnowElog.csv", which has
 #' # customer IDs in the second column, dates in the third column, and
 #' # sales numbers in the fifth column.
-#' elog <- dc.ReadLines(system.file("data/cdnowElog.csv", package="BTYD2"),2,3,5)
+#' elog <- dc.ReadLines(system.file("data/cdnowElog.csv", package="BTYD"),2,3,5)
 #'
 #' # converting the date column to Date objects is
 #' # necessary for this function.
@@ -464,7 +464,7 @@ dc.BuildCBTFromElog <- function(elog,
 #' # Create event log from file "cdnowElog.csv", which has
 #' # customer IDs in the second column, dates in the third column, and
 #' # sales numbers in the fifth column.
-#' elog <- dc.ReadLines(system.file("data/cdnowElog.csv", package="BTYD2"),2,3,5)
+#' elog <- dc.ReadLines(system.file("data/cdnowElog.csv", package="BTYD"),2,3,5)
 #' 
 #' # Given that the dates are in the order year-month-day,
 #' # it is not strictly necessary to convert the date column
@@ -499,7 +499,7 @@ dc.CreateFreqCBT <- function(elog) {
 #' # Create event log from file "cdnowElog.csv", which has
 #' # customer IDs in the second column, dates in the third column, and
 #' # sales numbers in the fifth column.
-#' elog <- dc.ReadLines(system.file("data/cdnowElog.csv", package="BTYD2"),2,3,5)
+#' elog <- dc.ReadLines(system.file("data/cdnowElog.csv", package="BTYD"),2,3,5)
 #' 
 #' # Given that the dates are in the order year-month-day,
 #' # it is not strictly necessary to convert the date column
@@ -536,7 +536,7 @@ dc.CreateReachCBT <- function(elog) {
 #' # Create event log from file "cdnowElog.csv", which has
 #' # customer IDs in the second column, dates in the third column, and
 #' # sales numbers in the fifth column.
-#' elog <- dc.ReadLines(system.file("data/cdnowElog.csv", package="BTYD2"),2,3,5);
+#' elog <- dc.ReadLines(system.file("data/cdnowElog.csv", package="BTYD"),2,3,5);
 #'
 #' # Given that the dates are in the order year-month-day,
 #' # it is not strictly necessary to convert the date column
@@ -637,7 +637,7 @@ dc.MakeRFmatrixHoldout <- function(holdout.cbt) {
 #'   of recency, frequency, and number of periods observed ("custs"), and
 #'   optionally, number of transactions in the holdout period ("x.star").
 #' @examples
-#' elog <- dc.ReadLines(system.file("data/discreteSimElog.csv", package="BTYD2"),1,2)
+#' elog <- dc.ReadLines(system.file("data/discreteSimElog.csv", package="BTYD"),1,2)
 #' elog[,"date"] <- as.Date(elog[,"date"])
 #'
 #' cutoff.date <- as.Date("1977-01-01")
@@ -780,7 +780,7 @@ dc.MakeRFmatrixCal <- function(frequencies,
 #'   frequency("x"), recency("t.x") and total time observed("T.cal"). See
 #'   details. Frequency is total transactions, not repeat transactions.
 #' @examples
-#' elog <- dc.ReadLines(system.file("data/cdnowElog.csv", package="BTYD2"),2,3,5)
+#' elog <- dc.ReadLines(system.file("data/cdnowElog.csv", package="BTYD"),2,3,5)
 #' elog[,"date"] <- as.Date(elog[,"date"], "%Y%m%d")
 #' 
 #' # Transaction-flow models are about interpurchase times. Since we
@@ -892,7 +892,7 @@ dc.BuildCBSFromCBTAndDates <- function(cbt,
 #'   inserted). Usually from the holdout period.
 #' @return Updated holdout period CBT or CBS.
 #' @examples
-#' elog <- dc.ReadLines(system.file("data/cdnowElog.csv", package="BTYD2"),2,3,5)
+#' elog <- dc.ReadLines(system.file("data/cdnowElog.csv", package="BTYD"),2,3,5)
 #' elog[,"date"] <- as.Date(elog[,"date"], "%Y%m%d")
 #' cutoff.date <- as.Date("1997-09-30")
 #' cal.elog <- elog[which(elog[,"date"] <= cutoff.date),]
@@ -1061,7 +1061,7 @@ dc.MergeTransactionsOnSameDate <- function(elog) {
 #'   day4 - `elog3` elog1 combined with elog2, with all dates from elog2 reduced
 #'   by the time removed between elog1 and elog2
 #' @examples
-#' elog <- dc.ReadLines(system.file("data/cdnowElog.csv", package="BTYD2"),2,3,5)
+#' elog <- dc.ReadLines(system.file("data/cdnowElog.csv", package="BTYD"),2,3,5)
 #' elog[,"date"] <- as.Date(elog[,"date"], "%Y%m%d")
 #'
 #' # Use the cdnow data to return a 6 month event log for January, February,
@@ -1552,7 +1552,7 @@ dc.PlotLogLikelihoodContour <- function(loglikelihood.fcn,
 #' # Create event log from file "cdnowElog.csv", which has
 #' # customer IDs in the second column, dates in the third column, and
 #' # sales numbers in the fifth column.
-#' elog <- dc.ReadLines(system.file("data/cdnowElog.csv", package="BTYD2"),2,3,5)
+#' elog <- dc.ReadLines(system.file("data/cdnowElog.csv", package="BTYD"),2,3,5)
 #' 
 #' # convert date column to date objects, as required by some other functions
 #' elog$date <- as.Date(elog$date, "$Y%m%d")

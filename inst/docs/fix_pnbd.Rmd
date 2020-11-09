@@ -1166,6 +1166,7 @@ Now I know that BTYD3 works, so I might as well fix BTYD2 too. The steps:
  - at the command line, `cp -Rf BTYD3 BTYD2`
  - find BTYD3 and replace it with BTYD2 in the bodies of the following files
  - `DESCRIPTION`
+ - `R/dc.R`
  - `vignettes/BTYD3-walkthrough.Rnw` (and change its name)
  - erase `man/BTYD3-package.Rd` entirely
  - rename `R/BTYD3.R` to `R/BTYD2.R`
