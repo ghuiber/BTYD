@@ -461,7 +461,7 @@ pnbd.cbs.LL <- function(params, cal.cbs, hardie) {
 #' @return Unnamed vector of estimated parameters by default, \code{optimx}
 #'   object with everything if \code{hessian} is TRUE.
 #' @seealso \code{\link{pnbd.cbs.LL}}
-#' @seealso \url{http://www.ibm.com/developerworks/library/ba-optimR-john-nash/}
+#' @seealso \url{https://www.ibm.com/developerworks/library/ba-optimR-john-nash/}
 #' @references Fader, Peter S.; Hardie, and Bruce G.S.. "Overcoming the BG/NBD
 #'   Model's #NUM! Error Problem." December. 2013. Web.
 #'   \url{http://brucehardie.com/notes/027/bgnbd_num_error.pdf}
@@ -591,11 +591,11 @@ pnbd.pmf.General <- function(params,
     stop("Error in pnbd.pmf.General: t.start > t.end.")
   }
   inputs <- try(dc.InputCheck(params = params, 
-                                func = "pnbd.pmf.General", 
-                                printnames = c("r", "alpha", "s", "beta"), 
-                                t.start = t.start, 
-                                t.end = t.end, 
-                                x = x))
+                              func = "pnbd.pmf.General", 
+                              printnames = c("r", "alpha", "s", "beta"), 
+                              t.start = t.start, 
+                              t.end = t.end, 
+                              x = x))
   if('try-error' == class(inputs)) return(str(inputs)$message)
   
   t.start <- inputs$t.start
@@ -630,8 +630,16 @@ pnbd.pmf.General <- function(params,
   
   # Marshal the parameters of the hypergeometric and the
   # denominator in the expressions of B1 and B2 shown in
-  # http://www.brucehardie.com/notes/013/Pareto_NBD_interval_pmf.pdf
-  B1B2 <- function(hardie, r, alpha, s, beta, x, t.start, t.end = 0, ii = 0) {
+  # http://www.brucehardie.com/notes/013/Pareto_NBD_interval_pmf_rev.pdf
+  B1B2 <- function(hardie, 
+                   r, 
+                   alpha, 
+                   s, 
+                   beta, 
+                   x, 
+                   t.start, 
+                   t.end = 0, 
+                   ii = 0) {
     myalpha <- alpha
     mybeta <- beta + t.start
     maxab <- max(myalpha, mybeta) + t.end
@@ -655,7 +663,15 @@ pnbd.pmf.General <- function(params,
     return(Re(hypergeo(a, b, c, z))/den) 
   }
   
-  B.1 <- B1B2(hardie, r, alpha, s, beta, x, t.start)
+  B.1 <- mapply(x = inputs$x,
+                t.start = inputs$t.start, 
+                B1B2, 
+                hardie = hardie, 
+                r = r, 
+                alpha = alpha, 
+                s = s, 
+                beta = beta)
+  #B.1 <- B1B2(hardie, r, alpha, s, beta, x, t.start)
 
   equation.part.2.summation <- rep(NA, max.length)
   ## In the paper, for i=0 we have t^i / i * B(r+s, i). 
@@ -820,10 +836,10 @@ pnbd.ConditionalExpectedTransactions <- function(params,
 #'          hardie = TRUE)
 pnbd.pmf <- function(params, t, x, hardie) {
   inputs <- try(dc.InputCheck(params = params, 
-                                    func = "pnbd.pmf", 
-                                    printnames = c("r", "alpha", "s", "beta"), 
-                                    t = t, 
-                                    x = x))
+                              func = "pnbd.pmf", 
+                              printnames = c("r", "alpha", "s", "beta"), 
+                              t = t, 
+                              x = x))
   if('try-error' == class(inputs)) return(str(inputs)$message)
   pnbd.pmf.General(params = params, 
                    t.start = 0, 

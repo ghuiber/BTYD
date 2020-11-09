@@ -29,7 +29,7 @@ Creates a customer-by-time matrix with spend per time period.
 # Create event log from file "cdnowElog.csv", which has
 # customer IDs in the second column, dates in the third column, and
 # sales numbers in the fifth column.
-elog <- dc.ReadLines(system.file("data/cdnowElog.csv", package="BTYD2"),2,3,5);
+elog <- dc.ReadLines(system.file("data/cdnowElog.csv", package="BTYD"),2,3,5);
 
 # Given that the dates are in the order year-month-day,
 # it is not strictly necessary to convert the date column

@@ -6,15 +6,15 @@ Authors@R: c(person("Lukasz", "Dziurzynski", role="aut"),
              person("Edward", "Wadsworth", role="aut"), 
              person("Peter", "Fader", role="ctb"), 
              person("Elea", "McDonnell Feit", role="ctb"), 
-             person("Daniel", "McCarthy", role=c("aut","cre","ctb"), email="danielmc@wharton.upenn.edu"),
+             person("Daniel", "McCarthy", role=c("aut", "ctb")),
              person("Bruce", "Hardie", role="ctb"),
              person("Arun", "Gopalakrishnan", role="ctb"), 
              person("Eric", "Schwartz", role="ctb"), 
              person("Yao", "Zhang", role="ctb"), 
-             person("Gabi", "Huiber", role="ctb"))
+             person("Gabi", "Huiber", role=c("ctb", "cre"), email="ghuiber@gmail.com"))
 Maintainer: Gabi Huiber <ghuiber@gmail.com>
 URL: ghuiber.github.io
-Description: This package contains functions for data preparation, parameter
+Description: Functions for data preparation, parameter 
     estimation, scoring, and plotting for the BG/BB, BG/NBD and Pareto/NBD models.
 License: GPL-3
 Collate:
@@ -33,17 +33,18 @@ Depends:
 Imports:
     Matrix
 Suggests:
-    knitr
-VignetteBuilder: knitr
+    knitr, rmarkdown
+VignetteBuilder: knitr, rmarkdown
 Author: Lukasz Dziurzynski [aut],
         Edward Wadsworth [aut], 
         Peter Fader [ctb], 
         Elea McDonnell Feit [ctb], 
-        Daniel McCarthy [aut, cre, ctb], 
+        Daniel McCarthy [aut, ctb], 
         Bruce Hardie [ctb], 
         Arun Gopalakrishnan [ctb], 
         Eric Schwartz [ctb], 
-        Yao Zhang [ctb]
+        Yao Zhang [ctb], 
+        Gabi Huiber [ctb, cre]
 NeedsCompilation: no
 Encoding: UTF-8
 RoxygenNote: 7.1.1

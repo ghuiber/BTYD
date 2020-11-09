@@ -34,7 +34,7 @@ for example, in sports with off-seasons.
 The four date parameters must be in ascending order.
 }
 \examples{
-elog <- dc.ReadLines(system.file("data/cdnowElog.csv", package="BTYD2"),2,3,5)
+elog <- dc.ReadLines(system.file("data/cdnowElog.csv", package="BTYD"),2,3,5)
 elog[,"date"] <- as.Date(elog[,"date"], "\%Y\%m\%d")
 
 # Use the cdnow data to return a 6 month event log for January, February,

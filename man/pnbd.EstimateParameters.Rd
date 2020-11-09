@@ -99,5 +99,5 @@ Model's #NUM! Error Problem." December. 2013. Web.
 \seealso{
 \code{\link{pnbd.cbs.LL}}
 
-\url{http://www.ibm.com/developerworks/library/ba-optimR-john-nash/}
+\url{https://www.ibm.com/developerworks/library/ba-optimR-john-nash/}
 }

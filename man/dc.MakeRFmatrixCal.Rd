@@ -36,7 +36,7 @@ optionally, number of transactions in the holdout period ("x.star").
 Make a calibration period recency-frequency matrix.
 }
 \examples{
-elog <- dc.ReadLines(system.file("data/discreteSimElog.csv", package="BTYD2"),1,2)
+elog <- dc.ReadLines(system.file("data/discreteSimElog.csv", package="BTYD"),1,2)
 elog[,"date"] <- as.Date(elog[,"date"])
 
 cutoff.date <- as.Date("1977-01-01")

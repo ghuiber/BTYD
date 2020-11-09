@@ -30,7 +30,7 @@ their first transactions in the given time interval.
 # Create event log from file "cdnowElog.csv", which has
 # customer IDs in the second column, dates in the third column, and
 # sales numbers in the fifth column.
-elog <- dc.ReadLines(system.file("data/cdnowElog.csv", package="BTYD2"),2,3,5)
+elog <- dc.ReadLines(system.file("data/cdnowElog.csv", package="BTYD"),2,3,5)
 
 # converting the date column to Date objects is
 # necessary for this function.

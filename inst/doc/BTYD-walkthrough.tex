@@ -1,6 +1,56 @@
 %\VignetteEngine{knitr::knitr}
 %\VignetteIndexEntry{Buy 'Til You Die - A Walkthrough}
-\documentclass[10pt, letterpaper, onecolumn, oneside, final]{article}
+\documentclass[10pt, letterpaper, onecolumn, oneside, final]{article}\usepackage[]{graphicx}\usepackage[]{color}
+% maxwidth is the original width if it is less than linewidth
+% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+\makeatletter
+\def\maxwidth{ %
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+
+\definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
+\newcommand{\hlstr}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
+\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hlstd}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
+\let\hlipl\hlkwb
+
+\usepackage{framed}
+\makeatletter
+\newenvironment{kframe}{%
+ \def\at@end@of@kframe{}%
+ \ifinner\ifhmode%
+  \def\at@end@of@kframe{\end{minipage}}%
+  \begin{minipage}{\columnwidth}%
+ \fi\fi%
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \colorbox{shadecolor}{##1}\hskip-\fboxsep
+     % There is no \\@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage}}%
+ {\par\unskip\endMakeFramed%
+ \at@end@of@kframe}
+\makeatother
+
+\definecolor{shadecolor}{rgb}{.97, .97, .97}
+\definecolor{messagecolor}{rgb}{0, 0, 0}
+\definecolor{warningcolor}{rgb}{1, 0, 1}
+\definecolor{errorcolor}{rgb}{1, 0, 0}
+\newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
+
+\usepackage{alltt}
 \usepackage{microtype}
 \usepackage[pdftex]{hyperref}
 \hypersetup{colorlinks, citecolor=black, linkcolor=black, urlcolor=blue}
@@ -11,15 +61,9 @@
 \title{Buy 'Til You Die - A Walkthrough}
 \date{November, 2014}
 \pagestyle{plain} %consider 'headings'
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 \begin{document}
-
-<<include=FALSE>>=
-library(knitr)
-opts_chunk$set(
-concordance=TRUE
-)
-@
-
+\SweaveOpts{concordance=TRUE}
 \maketitle %generate the title
 %\tableofcontents %insert the table of contents
 
@@ -78,22 +122,7 @@ provided by the BTYD package using the CDNOW\footnote{Provided with
 figure \ref{fig:pnbdCalibrationFit}, the Pareto/NBD model describes
 this dataset quite well.
 
-<<fig.path="figure/", label="pnbdCalibrationFit", results="hide", echo=FALSE, include=FALSE>>=
-library(knitr)
-opts_chunk$set(comment="#")
-library(BTYD)
-# Set the hardie parameter value here, apply it everywhere
-allHardie <- TRUE
-data(cdnowSummary)
-est.params <- cdnowSummary$est.params
-cal.cbs <- cdnowSummary$cbs
-pdf(file = 'figure/pnbdCalibrationFit.pdf')
-cal.fit <- pnbd.PlotFrequencyInCalibration(params = est.params, 
-                                           cal.cbs = cal.cbs, 
-                                           censor = 7, 
-                                           hardie = allHardie)
-dev.off()
-@ 
+
 
 \begin{figure}
   \begin{center}
@@ -126,12 +155,22 @@ names. In the example below, we create an event log from the file
 ``cdnowElog.csv'', which has customer IDs in the second column, dates
 in the third column and sales numbers in the fifth column.
 
-<<message=FALSE, tidy=FALSE>>=
-cdnowElog <- system.file("data/cdnowElog.csv", package = "BTYD")
-elog <- dc.ReadLines(cdnowElog, cust.idx = 2,
-                     date.idx = 3, sales.idx = 5)
-elog[1:3,]
-@ 
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{cdnowElog} \hlkwb{<-} \hlkwd{system.file}\hlstd{(}\hlstr{"data/cdnowElog.csv"}\hlstd{,} \hlkwc{package} \hlstd{=} \hlstr{"BTYD"}\hlstd{)}
+\hlstd{elog} \hlkwb{<-} \hlkwd{dc.ReadLines}\hlstd{(cdnowElog,} \hlkwc{cust.idx} \hlstd{=} \hlnum{2}\hlstd{,}
+                     \hlkwc{date.idx} \hlstd{=} \hlnum{3}\hlstd{,} \hlkwc{sales.idx} \hlstd{=} \hlnum{5}\hlstd{)}
+\hlstd{elog[}\hlnum{1}\hlopt{:}\hlnum{3}\hlstd{,]}
+\end{alltt}
+\begin{verbatim}
+#   cust     date sales
+# 1    1 19970101 29.33
+# 2    1 19970118 29.73
+# 3    1 19970802 14.96
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 Note the formatting of the dates in the output
 above. \texttt{dc.Readlines} saves dates as characters, exactly as
@@ -142,10 +181,20 @@ right order, you probably want them to be sorted chronologically and not
 alphabetically. Therefore, we convert the dates in the event log to R
 Date objects:
 
-<<message=FALSE>>=
-elog$date <- as.Date(elog$date, "%Y%m%d");
-elog[1:3,]
-@ 
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{elog}\hlopt{$}\hlstd{date} \hlkwb{<-} \hlkwd{as.Date}\hlstd{(elog}\hlopt{$}\hlstd{date,} \hlstr{"%Y%m%d"}\hlstd{);}
+\hlstd{elog[}\hlnum{1}\hlopt{:}\hlnum{3}\hlstd{,]}
+\end{alltt}
+\begin{verbatim}
+#   cust       date sales
+# 1    1 1997-01-01 29.33
+# 2    1 1997-01-18 29.73
+# 3    1 1997-08-02 14.96
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 Our event log now has dates in the right format, but a bit more
 cleaning needs to be done. Transaction-flow models, such as the
@@ -156,9 +205,13 @@ transactions that occurred on the same day. For this, we use
 event log with only one transaction per customer per day, with the
 total sum of their spending for that day as the sales number. 
 
-<<results="hide", message=FALSE>>=
-elog <- dc.MergeTransactionsOnSameDate(elog);
-@ 
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{elog} \hlkwb{<-} \hlkwd{dc.MergeTransactionsOnSameDate}\hlstd{(elog);}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 To validate that the model works, we need to divide the data up into a
 calibration period and a holdout period. This is relatively simple
@@ -171,10 +224,14 @@ customer-by-time matrix---it requires a last transaction date, and we
 want to make sure that last transaction date is the last date in the
 calibration period and not in the total period.
 
-<<message=FALSE>>=
-end.of.cal.period <- as.Date("1997-09-30")
-elog.cal <- elog[which(elog$date <= end.of.cal.period), ]
-@ 
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{end.of.cal.period} \hlkwb{<-} \hlkwd{as.Date}\hlstd{(}\hlstr{"1997-09-30"}\hlstd{)}
+\hlstd{elog.cal} \hlkwb{<-} \hlstd{elog[}\hlkwd{which}\hlstd{(elog}\hlopt{$}\hlstd{date} \hlopt{<=} \hlstd{end.of.cal.period), ]}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 The final cleanup step is a very important one. In the calibration
 period, the Pareto/NBD model is generally concerned with \emph{repeat}
@@ -190,10 +247,14 @@ observed. For this reason, we use
 log (\texttt{\$repeat.trans.elog}) as well as saving important
 information about each customer (\texttt{\$cust.data}).
 
-<<results="hide", message=FALSE>>=
-split.data <- dc.SplitUpElogForRepeatTrans(elog.cal);
-clean.elog <- split.data$repeat.trans.elog;
-@ 
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{split.data} \hlkwb{<-} \hlkwd{dc.SplitUpElogForRepeatTrans}\hlstd{(elog.cal);}
+\hlstd{clean.elog} \hlkwb{<-} \hlstd{split.data}\hlopt{$}\hlstd{repeat.trans.elog;}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 The next step is to create a customer-by-time matrix. This is simply a
 matrix with a row for each customer and a column for each date. There
@@ -214,10 +275,21 @@ are several different options for creating these matrices:
     cases, leaving \texttt{is.avg.spend} as \texttt{FALSE} is appropriate.
 \end{itemize}
  
-<<message=FALSE>>=
-freq.cbt <- dc.CreateFreqCBT(clean.elog);
-freq.cbt[1:3,1:5]
-@ 
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{freq.cbt} \hlkwb{<-} \hlkwd{dc.CreateFreqCBT}\hlstd{(clean.elog);}
+\hlstd{freq.cbt[}\hlnum{1}\hlopt{:}\hlnum{3}\hlstd{,}\hlnum{1}\hlopt{:}\hlnum{5}\hlstd{]}
+\end{alltt}
+\begin{verbatim}
+#     date
+# cust 1997-01-08 1997-01-09 1997-01-10 1997-01-11 1997-01-12
+#    1          0          0          0          0          0
+#    2          0          0          0          0          0
+#    6          0          0          0          1          0
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 There are two things to note from the output above:
 \begin{enumerate}
@@ -241,10 +313,14 @@ transactions, and then merge the filtered CBT with this total CBT
 (using data from the filtered CBT and customer IDs from the total
 CBT).
 
-<<results="hide", message=FALSE>>=
-tot.cbt <- dc.CreateFreqCBT(elog)
-cal.cbt <- dc.MergeCustomers(tot.cbt, freq.cbt)
-@ 
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{tot.cbt} \hlkwb{<-} \hlkwd{dc.CreateFreqCBT}\hlstd{(elog)}
+\hlstd{cal.cbt} \hlkwb{<-} \hlkwd{dc.MergeCustomers}\hlstd{(tot.cbt, freq.cbt)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 From the calibration period customer-by-time matrix (and a bit of
 additional information we saved earlier), we can finally create the
@@ -263,14 +339,18 @@ used for the holdout period---it requires different input dates
 (simply the start and end of the holdout period) and does not return a
 recency (which has little value in the holdout period).
 
-<<tidy=FALSE, results="hide", message=FALSE>>=
-birth.periods <- split.data$cust.data$birth.per
-last.dates <- split.data$cust.data$last.date
-cal.cbs.dates <- data.frame(birth.periods, last.dates, 
-                            end.of.cal.period)
-cal.cbs <- dc.BuildCBSFromCBTAndDates(cal.cbt, cal.cbs.dates, 
-                                      per="week")
-@ 
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{birth.periods} \hlkwb{<-} \hlstd{split.data}\hlopt{$}\hlstd{cust.data}\hlopt{$}\hlstd{birth.per}
+\hlstd{last.dates} \hlkwb{<-} \hlstd{split.data}\hlopt{$}\hlstd{cust.data}\hlopt{$}\hlstd{last.date}
+\hlstd{cal.cbs.dates} \hlkwb{<-} \hlkwd{data.frame}\hlstd{(birth.periods, last.dates,}
+                            \hlstd{end.of.cal.period)}
+\hlstd{cal.cbs} \hlkwb{<-} \hlkwd{dc.BuildCBSFromCBTAndDates}\hlstd{(cal.cbt, cal.cbs.dates,}
+                                      \hlkwc{per}\hlstd{=}\hlstr{"week"}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 You'll be glad to hear that, for the process described above, the
 package contains a single function to do everything for you:
@@ -294,36 +374,58 @@ are provided. The function which is maximized is \texttt{pnbd.cbs.LL},
 which returns the log-likelihood of a given set of parameters for a
 customer-by-sufficient-statistic matrix.
 
-<<warning=FALSE>>=
-params <- pnbd.EstimateParameters(cal.cbs = cal.cbs, 
-                                  hardie = allHardie);
-round(params, digits = 3)
-LL <- pnbd.cbs.LL(params = params, 
-                  cal.cbs = cal.cbs, 
-                  hardie = allHardie)
-LL
-@ 
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{params} \hlkwb{<-} \hlkwd{pnbd.EstimateParameters}\hlstd{(}\hlkwc{cal.cbs} \hlstd{= cal.cbs,}
+                                  \hlkwc{hardie} \hlstd{= allHardie);}
+\hlkwd{round}\hlstd{(params,} \hlkwc{digits} \hlstd{=} \hlnum{3}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+# [1]  0.553 10.580  0.606 11.656
+\end{verbatim}
+\begin{alltt}
+\hlstd{LL} \hlkwb{<-} \hlkwd{pnbd.cbs.LL}\hlstd{(}\hlkwc{params} \hlstd{= params,}
+                  \hlkwc{cal.cbs} \hlstd{= cal.cbs,}
+                  \hlkwc{hardie} \hlstd{= allHardie)}
+\hlstd{LL}
+\end{alltt}
+\begin{verbatim}
+# [1] -9594.976
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 As with any optimization, we should not be satisfied with the first
 output we get. Let's run it a couple more times, with its own output
 as a starting point, to see if it converges:
 
-<<>>=
-p.matrix <- c(params, LL)
-for (i in 1:2){
-  params <- pnbd.EstimateParameters(cal.cbs = cal.cbs, 
-                                    par.start = params, 
-                                    hardie = allHardie)
-  LL <- pnbd.cbs.LL(params = params, 
-                    cal.cbs = cal.cbs, 
-                    hardie = allHardie)
-  p.matrix.row <- c(params, LL)
-  p.matrix <- rbind(p.matrix, p.matrix.row)
-}
-colnames(p.matrix) <- c("r", "alpha", "s", "beta", "LL")
-rownames(p.matrix) <- 1:3
-round(p.matrix, digits = 3)
-@ 
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{p.matrix} \hlkwb{<-} \hlkwd{c}\hlstd{(params, LL)}
+\hlkwa{for} \hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlnum{2}\hlstd{)\{}
+  \hlstd{params} \hlkwb{<-} \hlkwd{pnbd.EstimateParameters}\hlstd{(}\hlkwc{cal.cbs} \hlstd{= cal.cbs,}
+                                    \hlkwc{par.start} \hlstd{= params,}
+                                    \hlkwc{hardie} \hlstd{= allHardie)}
+  \hlstd{LL} \hlkwb{<-} \hlkwd{pnbd.cbs.LL}\hlstd{(}\hlkwc{params} \hlstd{= params,}
+                    \hlkwc{cal.cbs} \hlstd{= cal.cbs,}
+                    \hlkwc{hardie} \hlstd{= allHardie)}
+  \hlstd{p.matrix.row} \hlkwb{<-} \hlkwd{c}\hlstd{(params, LL)}
+  \hlstd{p.matrix} \hlkwb{<-} \hlkwd{rbind}\hlstd{(p.matrix, p.matrix.row)}
+\hlstd{\}}
+\hlkwd{colnames}\hlstd{(p.matrix)} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlstr{"r"}\hlstd{,} \hlstr{"alpha"}\hlstd{,} \hlstr{"s"}\hlstd{,} \hlstr{"beta"}\hlstd{,} \hlstr{"LL"}\hlstd{)}
+\hlkwd{rownames}\hlstd{(p.matrix)} \hlkwb{<-} \hlnum{1}\hlopt{:}\hlnum{3}
+\hlkwd{round}\hlstd{(p.matrix,} \hlkwc{digits} \hlstd{=} \hlnum{3}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+#       r alpha     s   beta        LL
+# 1 0.553 10.58 0.606 11.656 -9594.976
+# 2 0.553 10.58 0.606 11.657 -9594.976
+# 3 0.553 10.58 0.606 11.658 -9594.976
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 This estimation does converge. I am not going to demonstrate it here,
 but it is always a good idea to test the estimation function
@@ -344,11 +446,7 @@ are more likely to have low values for their individual poisson
 transaction process parameters, and more likely to have low values for
 their individual exponential dropout process parameters.
 
-<<fig.path="figure/", label="pnbdTransactionHeterogeneity", results="hide", include=FALSE>>=
-pdf(file = 'figure/pnbdTransactionHeterogeneity.pdf')
-pnbd.PlotTransactionRateHeterogeneity(params = params)
-dev.off()
-@ 
+
 
 \begin{figure}
   \begin{center}
@@ -357,11 +455,7 @@ dev.off()
   \end{center}
 \end{figure}
 
-<<fig.path="figure/", label="pnbdDropoutHeterogeneity", results="hide", include=FALSE>>=
-pdf(file = 'figure/pnbdDropoutHeterogeneity.pdf')
-pnbd.PlotDropoutRateHeterogeneity(params = params)
-dev.off()
-@ 
+
 
 \begin{figure}
   \begin{center}
@@ -382,9 +476,16 @@ that we use 52 weeks to represent one year, not 12 months, 365 days,
 or 1 year. This is because our parameters were estimated using weekly
 data.
 
-<<>>=
-pnbd.Expectation(params = params, t = 52)
-@ 
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{pnbd.Expectation}\hlstd{(}\hlkwc{params} \hlstd{= params,} \hlkwc{t} \hlstd{=} \hlnum{52}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+# [1] 1.473434
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 We can also obtain expected characteristics for a specific customer,
 conditional on their purchasing behavior during the calibration
@@ -396,41 +497,69 @@ probability that a customer is still alive at the end of the
 calibration period. As above, the time periods used depend on which
 time period was used to estimate the parameters. 
 
-<<tidy=FALSE>>=
-cal.cbs["1516",]
-x <- cal.cbs["1516", "x"]
-t.x <- cal.cbs["1516", "t.x"]
-T.cal <- cal.cbs["1516", "T.cal"]
-pnbd.ConditionalExpectedTransactions(params, 
-                                     T.star = 52, 
-                                     x, 
-                                     t.x, 
-                                     T.cal, 
-                                     hardie = allHardie)
-pnbd.PAlive(params, 
-            x, 
-            t.x, 
-            T.cal, 
-            hardie = allHardie)
-@ 
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{cal.cbs[}\hlstr{"1516"}\hlstd{,]}
+\end{alltt}
+\begin{verbatim}
+#        x      t.x    T.cal 
+# 26.00000 30.85714 31.00000
+\end{verbatim}
+\begin{alltt}
+\hlstd{x} \hlkwb{<-} \hlstd{cal.cbs[}\hlstr{"1516"}\hlstd{,} \hlstr{"x"}\hlstd{]}
+\hlstd{t.x} \hlkwb{<-} \hlstd{cal.cbs[}\hlstr{"1516"}\hlstd{,} \hlstr{"t.x"}\hlstd{]}
+\hlstd{T.cal} \hlkwb{<-} \hlstd{cal.cbs[}\hlstr{"1516"}\hlstd{,} \hlstr{"T.cal"}\hlstd{]}
+\hlkwd{pnbd.ConditionalExpectedTransactions}\hlstd{(params,}
+                                     \hlkwc{T.star} \hlstd{=} \hlnum{52}\hlstd{,}
+                                     \hlstd{x,}
+                                     \hlstd{t.x,}
+                                     \hlstd{T.cal,}
+                                     \hlkwc{hardie} \hlstd{= allHardie)}
+\end{alltt}
+\begin{verbatim}
+# [1] 25.45647
+\end{verbatim}
+\begin{alltt}
+\hlkwd{pnbd.PAlive}\hlstd{(params,}
+            \hlstd{x,}
+            \hlstd{t.x,}
+            \hlstd{T.cal,}
+            \hlkwc{hardie} \hlstd{= allHardie)}
+\end{alltt}
+\begin{verbatim}
+# [1] 0.997874
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 There is one more point to note here---using the conditional
 expectation function, we can see the ``increasing frequency paradox''
 in action:
 
-<<tidy=FALSE>>=
-# avoid overflow in LaTeX code block here:
-cet <- "pnbd.ConditionalExpectedTransactions"
-for (i in seq(10, 25, 5)){
-  cond.expectation <- match.fun(cet)(params, 
-                                     T.star = 52, 
-                                     x = i, 
-                                     t.x = 20, 
-                                     T.cal = 39, 
-                                     hardie = allHardie)
-  cat ("x:",i,"\t Expectation:",cond.expectation, fill = TRUE)
-}
-@ 
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# avoid overflow in LaTeX code block here:}
+\hlstd{cet} \hlkwb{<-} \hlstr{"pnbd.ConditionalExpectedTransactions"}
+\hlkwa{for} \hlstd{(i} \hlkwa{in} \hlkwd{seq}\hlstd{(}\hlnum{10}\hlstd{,} \hlnum{25}\hlstd{,} \hlnum{5}\hlstd{))\{}
+  \hlstd{cond.expectation} \hlkwb{<-} \hlkwd{match.fun}\hlstd{(cet)(params,}
+                                     \hlkwc{T.star} \hlstd{=} \hlnum{52}\hlstd{,}
+                                     \hlkwc{x} \hlstd{= i,}
+                                     \hlkwc{t.x} \hlstd{=} \hlnum{20}\hlstd{,}
+                                     \hlkwc{T.cal} \hlstd{=} \hlnum{39}\hlstd{,}
+                                     \hlkwc{hardie} \hlstd{= allHardie)}
+  \hlkwd{cat} \hlstd{(}\hlstr{"x:"}\hlstd{,i,}\hlstr{"\textbackslash{}t Expectation:"}\hlstd{,cond.expectation,} \hlkwc{fill} \hlstd{=} \hlnum{TRUE}\hlstd{)}
+\hlstd{\}}
+\end{alltt}
+\begin{verbatim}
+# x: 10 	 Expectation: 0.7062289
+# x: 15 	 Expectation: 0.1442396
+# x: 20 	 Expectation: 0.02250658
+# x: 25 	 Expectation: 0.00309267
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 \subsection{Plotting/ Goodness-of-fit}
 \label{subsec:pnbdPlotting}
@@ -444,12 +573,16 @@ actual and expected frequencies within the calibration period. This is
 figure \ref{fig:pnbdCalibrationFit}, which was generated using the
 following code:
 
-<<results="hide", eval=FALSE>>=
-pnbd.PlotFrequencyInCalibration(params = params, 
-                                cal.cbs = cal.cbs, 
-                                censor = 7, 
-                                hardie = allHardie)
-@ 
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{pnbd.PlotFrequencyInCalibration}\hlstd{(}\hlkwc{params} \hlstd{= params,}
+                                \hlkwc{cal.cbs} \hlstd{= cal.cbs,}
+                                \hlkwc{censor} \hlstd{=} \hlnum{7}\hlstd{,}
+                                \hlkwc{hardie} \hlstd{= allHardie)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 This function obviously needs to be able to generate expected data
 (from estimated parameters) and requires the actual data (the
@@ -474,19 +607,29 @@ transactions in the calibration period from the total number of
 transactions. We remove the initial transactions first as we are not
 concerned with them.
 
-<<message=FALSE>>=
-elog <- dc.SplitUpElogForRepeatTrans(elog)$repeat.trans.elog;
-x.star <- rep(0, nrow(cal.cbs));
-cal.cbs <- cbind(cal.cbs, x.star);
-elog.custs <- elog$cust;
-for (i in 1:nrow(cal.cbs)){
-  current.cust <- rownames(cal.cbs)[i]
-  tot.cust.trans <- length(which(elog.custs == current.cust))
-  cal.trans <- cal.cbs[i, "x"]
-  cal.cbs[i, "x.star"] <-  tot.cust.trans - cal.trans
-}
-round(cal.cbs[1:3,], digits = 3)
-@ 
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{elog} \hlkwb{<-} \hlkwd{dc.SplitUpElogForRepeatTrans}\hlstd{(elog)}\hlopt{$}\hlstd{repeat.trans.elog;}
+\hlstd{x.star} \hlkwb{<-} \hlkwd{rep}\hlstd{(}\hlnum{0}\hlstd{,} \hlkwd{nrow}\hlstd{(cal.cbs));}
+\hlstd{cal.cbs} \hlkwb{<-} \hlkwd{cbind}\hlstd{(cal.cbs, x.star);}
+\hlstd{elog.custs} \hlkwb{<-} \hlstd{elog}\hlopt{$}\hlstd{cust;}
+\hlkwa{for} \hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlkwd{nrow}\hlstd{(cal.cbs))\{}
+  \hlstd{current.cust} \hlkwb{<-} \hlkwd{rownames}\hlstd{(cal.cbs)[i]}
+  \hlstd{tot.cust.trans} \hlkwb{<-} \hlkwd{length}\hlstd{(}\hlkwd{which}\hlstd{(elog.custs} \hlopt{==} \hlstd{current.cust))}
+  \hlstd{cal.trans} \hlkwb{<-} \hlstd{cal.cbs[i,} \hlstr{"x"}\hlstd{]}
+  \hlstd{cal.cbs[i,} \hlstr{"x.star"}\hlstd{]} \hlkwb{<-}  \hlstd{tot.cust.trans} \hlopt{-} \hlstd{cal.trans}
+\hlstd{\}}
+\hlkwd{round}\hlstd{(cal.cbs[}\hlnum{1}\hlopt{:}\hlnum{3}\hlstd{,],} \hlkwc{digits} \hlstd{=} \hlnum{3}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+#   x    t.x  T.cal x.star
+# 1 2 30.429 38.857      1
+# 2 1  1.714 38.857      0
+# 3 0  0.000 38.857      0
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 Now we can see how well our model does in the holdout period. Figure
 \ref{fig:pnbdCondExpComp} shows the output produced by the code below. It
@@ -494,21 +637,37 @@ divides the customers up into bins according to calibration period
 frequencies and plots actual and conditional expected holdout period
 frequencies for these bins.
 
-<<fig.path="figure/", label="pnbdCondExpComp", tidy=FALSE, echo=TRUE, size="small", fig.keep='none'>>=
-T.star <- 39 # length of the holdout period
-censor <- 7  # This censor serves the same purpose described above
-x.star <- cal.cbs[,"x.star"]
-pdf(file = 'figure/pnbdCondExpComp.pdf')
-comp <- pnbd.PlotFreqVsConditionalExpectedFrequency(params, 
-                                                    T.star, 
-                                                    cal.cbs, 
-                                                    x.star, 
-                                                    censor, 
-                                                    hardie = allHardie)
-dev.off()
-rownames(comp) <- c("act", "exp", "bin")
-round(comp, digits = 3)
-@
+\begin{knitrout}\small
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{T.star} \hlkwb{<-} \hlnum{39} \hlcom{# length of the holdout period}
+\hlstd{censor} \hlkwb{<-} \hlnum{7}  \hlcom{# This censor serves the same purpose described above}
+\hlstd{x.star} \hlkwb{<-} \hlstd{cal.cbs[,}\hlstr{"x.star"}\hlstd{]}
+\hlkwd{pdf}\hlstd{(}\hlkwc{file} \hlstd{=} \hlstr{'figure/pnbdCondExpComp.pdf'}\hlstd{)}
+\hlstd{comp} \hlkwb{<-} \hlkwd{pnbd.PlotFreqVsConditionalExpectedFrequency}\hlstd{(params,}
+                                                    \hlstd{T.star,}
+                                                    \hlstd{cal.cbs,}
+                                                    \hlstd{x.star,}
+                                                    \hlstd{censor,}
+                                                    \hlkwc{hardie} \hlstd{= allHardie)}
+\hlkwd{dev.off}\hlstd{()}
+\end{alltt}
+\begin{verbatim}
+# pdf 
+#   2
+\end{verbatim}
+\begin{alltt}
+\hlkwd{rownames}\hlstd{(comp)} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlstr{"act"}\hlstd{,} \hlstr{"exp"}\hlstd{,} \hlstr{"bin"}\hlstd{)}
+\hlkwd{round}\hlstd{(comp,} \hlkwc{digits} \hlstd{=} \hlnum{3}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+#       freq.0  freq.1  freq.2  freq.3 freq.4 freq.5 freq.6 freq.7+
+# act    0.237   0.697   1.393   1.560  2.532  2.947  3.862   6.359
+# exp    0.138   0.600   1.196   1.714  2.399  2.907  3.819   6.403
+# bin 1411.000 439.000 214.000 100.000 62.000 38.000 29.000  64.000
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 \begin{figure}
   \begin{center}
@@ -538,19 +697,27 @@ collected the data for us by time period; so we'll use that to gather
 the total transactions per day. Then we convert the daily tracking
 data to weekly data.
 
-<<>>=
-tot.cbt <- dc.CreateFreqCBT(elog)
-d.track.data <- rep(0, 7 * 78)
-origin <- as.Date("1997-01-01")
-for (i in colnames(tot.cbt)){
-  date.index <- difftime(as.Date(i), origin) + 1;
-  d.track.data[date.index] <- sum(tot.cbt[,i]);
-}
-w.track.data <-  rep(0, 78)
-for (j in 1:78){
-  w.track.data[j] <- sum(d.track.data[(j*7-6):(j*7)])
-}
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{tot.cbt} \hlkwb{<-} \hlkwd{dc.CreateFreqCBT}\hlstd{(elog)}
+\end{alltt}
+
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\# ...Completed Freq CBT}}\begin{alltt}
+\hlstd{d.track.data} \hlkwb{<-} \hlkwd{rep}\hlstd{(}\hlnum{0}\hlstd{,} \hlnum{7} \hlopt{*} \hlnum{78}\hlstd{)}
+\hlstd{origin} \hlkwb{<-} \hlkwd{as.Date}\hlstd{(}\hlstr{"1997-01-01"}\hlstd{)}
+\hlkwa{for} \hlstd{(i} \hlkwa{in} \hlkwd{colnames}\hlstd{(tot.cbt))\{}
+  \hlstd{date.index} \hlkwb{<-} \hlkwd{difftime}\hlstd{(}\hlkwd{as.Date}\hlstd{(i), origin)} \hlopt{+} \hlnum{1}\hlstd{;}
+  \hlstd{d.track.data[date.index]} \hlkwb{<-} \hlkwd{sum}\hlstd{(tot.cbt[,i]);}
+\hlstd{\}}
+\hlstd{w.track.data} \hlkwb{<-}  \hlkwd{rep}\hlstd{(}\hlnum{0}\hlstd{,} \hlnum{78}\hlstd{)}
+\hlkwa{for} \hlstd{(j} \hlkwa{in} \hlnum{1}\hlopt{:}\hlnum{78}\hlstd{)\{}
+  \hlstd{w.track.data[j]} \hlkwb{<-} \hlkwd{sum}\hlstd{(d.track.data[(j}\hlopt{*}\hlnum{7}\hlopt{-}\hlnum{6}\hlstd{)}\hlopt{:}\hlstd{(j}\hlopt{*}\hlnum{7}\hlstd{)])}
+\hlstd{\}}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 Now, we can make a plot comparing the actual number of transactions to
 the expected number of transactions on a weekly basis, as shown in
@@ -566,20 +733,39 @@ the total period (\texttt{T.tot} and \texttt{n.periods.final}) is that
 your customer-by-sufficient-statistic matrix and your tracking data
 may be in different time periods.
 
-<<fig.path="figure/", label="pnbdTrackingInc", tidy=FALSE, echo=TRUE, fig.keep='none'>>=
-T.cal <- cal.cbs[,"T.cal"]
-T.tot <- 78
-n.periods.final <- 78
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{T.cal} \hlkwb{<-} \hlstd{cal.cbs[,}\hlstr{"T.cal"}\hlstd{]}
+\hlstd{T.tot} \hlkwb{<-} \hlnum{78}
+\hlstd{n.periods.final} \hlkwb{<-} \hlnum{78}
 
-pdf(file = 'figure/pnbdTrackingInc.pdf')
-inc.tracking <- pnbd.PlotTrackingInc(params = params, 
-                                     T.cal = T.cal, 
-                                     T.tot = T.tot, 
-                                     actual.inc.tracking.data = w.track.data, 
-                                     n.periods.final = n.periods.final)
-dev.off()
-round(inc.tracking[,20:25], digits = 3)
-@ 
+\hlkwd{pdf}\hlstd{(}\hlkwc{file} \hlstd{=} \hlstr{'figure/pnbdTrackingInc.pdf'}\hlstd{)}
+\hlstd{inc.tracking} \hlkwb{<-} \hlkwd{pnbd.PlotTrackingInc}\hlstd{(}\hlkwc{params} \hlstd{= params,}
+                                     \hlkwc{T.cal} \hlstd{= T.cal,}
+                                     \hlkwc{T.tot} \hlstd{= T.tot,}
+                                     \hlkwc{actual.inc.tracking.data} \hlstd{= w.track.data,}
+                                     \hlkwc{n.periods.final} \hlstd{= n.periods.final)}
+\end{alltt}
+
+
+{\ttfamily\noindent\color{warningcolor}{\# Warning in FUN(X[[i]], ...): Maximum vector length not a multiple of the length of actual.inc.tracking.data}}\begin{alltt}
+\hlkwd{dev.off}\hlstd{()}
+\end{alltt}
+\begin{verbatim}
+# pdf 
+#   2
+\end{verbatim}
+\begin{alltt}
+\hlkwd{round}\hlstd{(inc.tracking[,}\hlnum{20}\hlopt{:}\hlnum{25}\hlstd{],} \hlkwc{digits} \hlstd{=} \hlnum{3}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+#            [,1]   [,2]   [,3]   [,4]   [,5]   [,6]
+# actual   73.000 55.000 70.000 33.000 56.000 99.000
+# expected 78.308 76.419 74.648 72.983 71.414 69.933
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 \begin{figure}
   \begin{center}
@@ -598,17 +784,36 @@ time, as shown in figure \ref{fig:pnbdTrackingCum}.
 
 
 
-<<fig.path="figure/", label="pnbdTrackingCum", tidy=FALSE, echo=TRUE, fig.keep='none'>>=
-cum.tracking.data <- cumsum(w.track.data)
-pdf(file = 'figure/pnbdTrackingCum.pdf')
-cum.tracking <- pnbd.PlotTrackingCum(params = params, 
-                                     T.cal = T.cal, 
-                                     T.tot = T.tot, 
-                                     actual.cu.tracking.data = cum.tracking.data, 
-                                     n.periods.final = n.periods.final)
-dev.off()
-round(cum.tracking[,20:25], digits = 3)
-@ 
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{cum.tracking.data} \hlkwb{<-} \hlkwd{cumsum}\hlstd{(w.track.data)}
+\hlkwd{pdf}\hlstd{(}\hlkwc{file} \hlstd{=} \hlstr{'figure/pnbdTrackingCum.pdf'}\hlstd{)}
+\hlstd{cum.tracking} \hlkwb{<-} \hlkwd{pnbd.PlotTrackingCum}\hlstd{(}\hlkwc{params} \hlstd{= params,}
+                                     \hlkwc{T.cal} \hlstd{= T.cal,}
+                                     \hlkwc{T.tot} \hlstd{= T.tot,}
+                                     \hlkwc{actual.cu.tracking.data} \hlstd{= cum.tracking.data,}
+                                     \hlkwc{n.periods.final} \hlstd{= n.periods.final)}
+\end{alltt}
+
+
+{\ttfamily\noindent\color{warningcolor}{\# Warning in FUN(X[[i]], ...): Maximum vector length not a multiple of the length of actual.cu.tracking.data}}\begin{alltt}
+\hlkwd{dev.off}\hlstd{()}
+\end{alltt}
+\begin{verbatim}
+# pdf 
+#   2
+\end{verbatim}
+\begin{alltt}
+\hlkwd{round}\hlstd{(cum.tracking[,}\hlnum{20}\hlopt{:}\hlnum{25}\hlstd{],} \hlkwc{digits} \hlstd{=} \hlnum{3}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+#              [,1]     [,2]     [,3]     [,4]    [,5]     [,6]
+# actual   1359.000 1414.000 1484.000 1517.000 1573.00 1672.000
+# expected 1308.856 1385.275 1459.923 1532.906 1604.32 1674.253
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 \begin{figure}
   \begin{center}
@@ -640,14 +845,7 @@ CDNOW\footnote{Provided with
 figure \ref{fig:bgnbdCalibrationFit}, the BG/NBD model describes
 this dataset quite well.
 
-<<fig.path="figure/", label="bgnbdCalibrationFit", results="hide", echo=FALSE, include=FALSE>>=
-data(cdnowSummary);
-est.params <- c(0.243, 4.414, 0.793, 2.426);
-cal.cbs <- cdnowSummary$cbs;
-pdf(file = 'figure/bgnbdCalibrationFit.pdf')
-cal.fit <- bgnbd.PlotFrequencyInCalibration(est.params, cal.cbs, 7)
-dev.off()
-@ 
+
 
 \begin{figure}
   \begin{center}
@@ -686,12 +884,22 @@ names. In the example below, we create an event log from the file
 ``cdnowElog.csv'', which has customer IDs in the second column, dates
 in the third column and sales numbers in the fifth column.
 
-<<message=FALSE, tidy=FALSE>>=
-cdnowElog <- system.file("data/cdnowElog.csv", package = "BTYD")
-elog <- dc.ReadLines(cdnowElog, cust.idx = 2,
-                     date.idx = 3, sales.idx = 5)
-elog[1:3,]
-@ 
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{cdnowElog} \hlkwb{<-} \hlkwd{system.file}\hlstd{(}\hlstr{"data/cdnowElog.csv"}\hlstd{,} \hlkwc{package} \hlstd{=} \hlstr{"BTYD"}\hlstd{)}
+\hlstd{elog} \hlkwb{<-} \hlkwd{dc.ReadLines}\hlstd{(cdnowElog,} \hlkwc{cust.idx} \hlstd{=} \hlnum{2}\hlstd{,}
+                     \hlkwc{date.idx} \hlstd{=} \hlnum{3}\hlstd{,} \hlkwc{sales.idx} \hlstd{=} \hlnum{5}\hlstd{)}
+\hlstd{elog[}\hlnum{1}\hlopt{:}\hlnum{3}\hlstd{,]}
+\end{alltt}
+\begin{verbatim}
+#   cust     date sales
+# 1    1 19970101 29.33
+# 2    1 19970118 29.73
+# 3    1 19970802 14.96
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 Note the formatting of the dates in the output
 above. \texttt{dc.Readlines} saves dates as characters, exactly as
@@ -702,10 +910,20 @@ right order, you probably want them to be sorted chronologically and not
 alphabetically. Therefore, we convert the dates in the event log to R
 Date objects:
 
-<<message=FALSE>>=
-elog$date <- as.Date(elog$date, "%Y%m%d");
-elog[1:3,]
-@ 
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{elog}\hlopt{$}\hlstd{date} \hlkwb{<-} \hlkwd{as.Date}\hlstd{(elog}\hlopt{$}\hlstd{date,} \hlstr{"%Y%m%d"}\hlstd{);}
+\hlstd{elog[}\hlnum{1}\hlopt{:}\hlnum{3}\hlstd{,]}
+\end{alltt}
+\begin{verbatim}
+#   cust       date sales
+# 1    1 1997-01-01 29.33
+# 2    1 1997-01-18 29.73
+# 3    1 1997-08-02 14.96
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 Our event log now has dates in the right format, but a bit more
 cleaning needs to be done. Transaction-flow models, such as the
@@ -716,9 +934,13 @@ transactions that occurred on the same day. For this, we use
 event log with only one transaction per customer per day, with the
 total sum of their spending for that day as the sales number. 
 
-<<results="hide", message=FALSE>>=
-elog <- dc.MergeTransactionsOnSameDate(elog);
-@ 
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{elog} \hlkwb{<-} \hlkwd{dc.MergeTransactionsOnSameDate}\hlstd{(elog);}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 To validate that the model works, we need to divide the data up into a
 calibration period and a holdout period. This is relatively simple
@@ -731,10 +953,14 @@ customer-by-time matrix---it requires a last transaction date, and we
 want to make sure that last transaction date is the last date in the
 calibration period and not in the total period.
 
-<<message=FALSE>>=
-end.of.cal.period <- as.Date("1997-09-30")
-elog.cal <- elog[which(elog$date <= end.of.cal.period), ]
-@ 
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{end.of.cal.period} \hlkwb{<-} \hlkwd{as.Date}\hlstd{(}\hlstr{"1997-09-30"}\hlstd{)}
+\hlstd{elog.cal} \hlkwb{<-} \hlstd{elog[}\hlkwd{which}\hlstd{(elog}\hlopt{$}\hlstd{date} \hlopt{<=} \hlstd{end.of.cal.period), ]}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 The final cleanup step is a very important one. In the calibration
 period, the BG/NBD model is generally concerned with \emph{repeat}
@@ -750,10 +976,14 @@ observed. For this reason, we use
 log (\texttt{\$repeat.trans.elog}) as well as saving important
 information about each customer (\texttt{\$cust.data}).
 
-<<results="hide", message=FALSE>>=
-split.data <- dc.SplitUpElogForRepeatTrans(elog.cal);
-clean.elog <- split.data$repeat.trans.elog;
-@ 
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{split.data} \hlkwb{<-} \hlkwd{dc.SplitUpElogForRepeatTrans}\hlstd{(elog.cal);}
+\hlstd{clean.elog} \hlkwb{<-} \hlstd{split.data}\hlopt{$}\hlstd{repeat.trans.elog;}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 The next step is to create a customer-by-time matrix. This is simply a
 matrix with a row for each customer and a column for each date. There
@@ -774,10 +1004,21 @@ are several different options for creating these matrices:
     cases, leaving \texttt{is.avg.spend} as \texttt{FALSE} is appropriate.
 \end{itemize}
  
-<<message=FALSE>>=
-freq.cbt <- dc.CreateFreqCBT(clean.elog);
-freq.cbt[1:3,1:5]
-@ 
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{freq.cbt} \hlkwb{<-} \hlkwd{dc.CreateFreqCBT}\hlstd{(clean.elog);}
+\hlstd{freq.cbt[}\hlnum{1}\hlopt{:}\hlnum{3}\hlstd{,}\hlnum{1}\hlopt{:}\hlnum{5}\hlstd{]}
+\end{alltt}
+\begin{verbatim}
+#     date
+# cust 1997-01-08 1997-01-09 1997-01-10 1997-01-11 1997-01-12
+#    1          0          0          0          0          0
+#    2          0          0          0          0          0
+#    6          0          0          0          1          0
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 There are two things to note from the output above:
 \begin{enumerate}
@@ -801,10 +1042,14 @@ transactions, and then merge the filtered CBT with this total CBT
 (using data from the filtered CBT and customer IDs from the total
 CBT).
 
-<<results="hide", message=FALSE>>=
-tot.cbt <- dc.CreateFreqCBT(elog)
-cal.cbt <- dc.MergeCustomers(tot.cbt, freq.cbt)
-@ 
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{tot.cbt} \hlkwb{<-} \hlkwd{dc.CreateFreqCBT}\hlstd{(elog)}
+\hlstd{cal.cbt} \hlkwb{<-} \hlkwd{dc.MergeCustomers}\hlstd{(tot.cbt, freq.cbt)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 From the calibration period customer-by-time matrix (and a bit of
 additional information we saved earlier), we can finally create the
@@ -823,14 +1068,18 @@ used for the holdout period---it requires different input dates
 (simply the start and end of the holdout period) and does not return a
 recency (which has little value in the holdout period).
 
-<<tidy=FALSE, results="hide", message=FALSE>>=
-birth.periods <- split.data$cust.data$birth.per
-last.dates <- split.data$cust.data$last.date
-cal.cbs.dates <- data.frame(birth.periods, last.dates, 
-                            end.of.cal.period)
-cal.cbs <- dc.BuildCBSFromCBTAndDates(cal.cbt, cal.cbs.dates, 
-                                      per="week")
-@ 
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{birth.periods} \hlkwb{<-} \hlstd{split.data}\hlopt{$}\hlstd{cust.data}\hlopt{$}\hlstd{birth.per}
+\hlstd{last.dates} \hlkwb{<-} \hlstd{split.data}\hlopt{$}\hlstd{cust.data}\hlopt{$}\hlstd{last.date}
+\hlstd{cal.cbs.dates} \hlkwb{<-} \hlkwd{data.frame}\hlstd{(birth.periods, last.dates,}
+                            \hlstd{end.of.cal.period)}
+\hlstd{cal.cbs} \hlkwb{<-} \hlkwd{dc.BuildCBSFromCBTAndDates}\hlstd{(cal.cbt, cal.cbs.dates,}
+                                      \hlkwc{per}\hlstd{=}\hlstr{"week"}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 You'll be glad to hear that, for the process described above, the
 package contains a single function to do everything for you:
@@ -856,29 +1105,52 @@ which returns the log-likelihood of a given set of parameters for a
 customer-by-sufficient-statistic matrix. Below, we start with relatively 
 uninformative starting values:
 
-<<>>=
-params <- bgnbd.EstimateParameters(cal.cbs);
-params
-LL <- bgnbd.cbs.LL(params, cal.cbs);
-LL
-@ 
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{params} \hlkwb{<-} \hlkwd{bgnbd.EstimateParameters}\hlstd{(cal.cbs);}
+\hlstd{params}
+\end{alltt}
+\begin{verbatim}
+#        p1        p2        p3        p4 
+# 0.2425982 4.4136842 0.7929899 2.4261667
+\end{verbatim}
+\begin{alltt}
+\hlstd{LL} \hlkwb{<-} \hlkwd{bgnbd.cbs.LL}\hlstd{(params, cal.cbs);}
+\hlstd{LL}
+\end{alltt}
+\begin{verbatim}
+# [1] -9582.429
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 As with any optimization, we should not be satisfied with the first
 output we get. Let's run it a couple more times, with its own output
 as a starting point, to see if it converges:
 
-<<>>=
-p.matrix <- c(params, LL);
-for (i in 1:2){
-params <- bgnbd.EstimateParameters(cal.cbs, params);
-LL <- bgnbd.cbs.LL(params, cal.cbs);
-p.matrix.row <- c(params, LL);
-p.matrix <- rbind(p.matrix, p.matrix.row);
-}
-colnames(p.matrix) <- c("r", "alpha", "a", "b", "LL");
-rownames(p.matrix) <- 1:3;
-p.matrix;
-@ 
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{p.matrix} \hlkwb{<-} \hlkwd{c}\hlstd{(params, LL);}
+\hlkwa{for} \hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlnum{2}\hlstd{)\{}
+\hlstd{params} \hlkwb{<-} \hlkwd{bgnbd.EstimateParameters}\hlstd{(cal.cbs, params);}
+\hlstd{LL} \hlkwb{<-} \hlkwd{bgnbd.cbs.LL}\hlstd{(params, cal.cbs);}
+\hlstd{p.matrix.row} \hlkwb{<-} \hlkwd{c}\hlstd{(params, LL);}
+\hlstd{p.matrix} \hlkwb{<-} \hlkwd{rbind}\hlstd{(p.matrix, p.matrix.row);}
+\hlstd{\}}
+\hlkwd{colnames}\hlstd{(p.matrix)} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlstr{"r"}\hlstd{,} \hlstr{"alpha"}\hlstd{,} \hlstr{"a"}\hlstd{,} \hlstr{"b"}\hlstd{,} \hlstr{"LL"}\hlstd{);}
+\hlkwd{rownames}\hlstd{(p.matrix)} \hlkwb{<-} \hlnum{1}\hlopt{:}\hlnum{3}\hlstd{;}
+\hlstd{p.matrix;}
+\end{alltt}
+\begin{verbatim}
+#           r    alpha         a        b        LL
+# 1 0.2425982 4.413684 0.7929899 2.426167 -9582.429
+# 2 0.2425965 4.413685 0.7929888 2.426166 -9582.429
+# 3 0.2425967 4.413659 0.7929869 2.426164 -9582.429
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 This estimation does converge. I am not going to demonstrate it here,
 but it is always a good idea to test the estimation function
@@ -899,11 +1171,7 @@ are more likely to have low values for their individual poisson
 transaction process parameters, and more likely to have low values for
 their individual geometric dropout probability parameters.
 
-<<fig.path="figure/", label="bgnbdTransactionHeterogeneity", results="hide", include=FALSE>>=
-pdf(file = 'figure/bgnbdTransactionHeterogeneity.pdf')
-bgnbd.PlotTransactionRateHeterogeneity(params)
-dev.off()
-@ 
+
 
 \begin{figure}
   \begin{center}
@@ -912,11 +1180,7 @@ dev.off()
   \end{center}
 \end{figure}
       
-<<fig.path="figure/", label="bgnbdDropoutHeterogeneity", results="hide", include=FALSE>>=
-pdf(file = 'figure/bgnbdDropoutHeterogeneity.pdf')
-bgnbd.PlotDropoutRateHeterogeneity(params)
-dev.off()
-@ 
+
 
 \begin{figure}
   \begin{center}
@@ -937,9 +1201,17 @@ that we use 52 weeks to represent one year, not 12 months, 365 days,
 or 1 year. This is because our parameters were estimated using weekly
 data.
 
-<<>>=
-bgnbd.Expectation(params, t=52);
-@ 
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{bgnbd.Expectation}\hlstd{(params,} \hlkwc{t}\hlstd{=}\hlnum{52}\hlstd{);}
+\end{alltt}
+\begin{verbatim}
+#       p3 
+# 1.444004
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 We can also obtain expected characteristics for a specific customer,
 conditional on their purchasing behavior during the calibration
@@ -951,28 +1223,58 @@ probability that a customer is still alive at the end of the
 calibration period. As above, the time periods used depend on which
 time period was used to estimate the parameters. 
 
-<<tidy=FALSE>>=
-cal.cbs["1516",]
-x <- cal.cbs["1516", "x"]
-t.x <- cal.cbs["1516", "t.x"]
-T.cal <- cal.cbs["1516", "T.cal"]
-bgnbd.ConditionalExpectedTransactions(params, T.star = 52, 
-                                     x, t.x, T.cal)
-bgnbd.PAlive(params, x, t.x, T.cal)
-@ 
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{cal.cbs[}\hlstr{"1516"}\hlstd{,]}
+\end{alltt}
+\begin{verbatim}
+#        x      t.x    T.cal 
+# 26.00000 30.85714 31.00000
+\end{verbatim}
+\begin{alltt}
+\hlstd{x} \hlkwb{<-} \hlstd{cal.cbs[}\hlstr{"1516"}\hlstd{,} \hlstr{"x"}\hlstd{]}
+\hlstd{t.x} \hlkwb{<-} \hlstd{cal.cbs[}\hlstr{"1516"}\hlstd{,} \hlstr{"t.x"}\hlstd{]}
+\hlstd{T.cal} \hlkwb{<-} \hlstd{cal.cbs[}\hlstr{"1516"}\hlstd{,} \hlstr{"T.cal"}\hlstd{]}
+\hlkwd{bgnbd.ConditionalExpectedTransactions}\hlstd{(params,} \hlkwc{T.star} \hlstd{=} \hlnum{52}\hlstd{,}
+                                     \hlstd{x, t.x, T.cal)}
+\end{alltt}
+\begin{verbatim}
+#       p3 
+# 25.75659
+\end{verbatim}
+\begin{alltt}
+\hlkwd{bgnbd.PAlive}\hlstd{(params, x, t.x, T.cal)}
+\end{alltt}
+\begin{verbatim}
+#        p3 
+# 0.9688523
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 There is one more point to note here---using the conditional
 expectation function, we can see the ``increasing frequency paradox''
 in action:
 
-<<tidy=FALSE>>=
-for (i in seq(10, 25, 5)){
-  cond.expectation <- bgnbd.ConditionalExpectedTransactions(
-                        params, T.star = 52, x = i,
-                        t.x = 20, T.cal = 39)
-  cat ("x:",i,"\t Expectation:",cond.expectation, fill = TRUE)
-}
-@ 
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwa{for} \hlstd{(i} \hlkwa{in} \hlkwd{seq}\hlstd{(}\hlnum{10}\hlstd{,} \hlnum{25}\hlstd{,} \hlnum{5}\hlstd{))\{}
+  \hlstd{cond.expectation} \hlkwb{<-} \hlkwd{bgnbd.ConditionalExpectedTransactions}\hlstd{(}
+                        \hlstd{params,} \hlkwc{T.star} \hlstd{=} \hlnum{52}\hlstd{,} \hlkwc{x} \hlstd{= i,}
+                        \hlkwc{t.x} \hlstd{=} \hlnum{20}\hlstd{,} \hlkwc{T.cal} \hlstd{=} \hlnum{39}\hlstd{)}
+  \hlkwd{cat} \hlstd{(}\hlstr{"x:"}\hlstd{,i,}\hlstr{"\textbackslash{}t Expectation:"}\hlstd{,cond.expectation,} \hlkwc{fill} \hlstd{=} \hlnum{TRUE}\hlstd{)}
+\hlstd{\}}
+\end{alltt}
+\begin{verbatim}
+# x: 10 	 Expectation: 0.3474606
+# x: 15 	 Expectation: 0.04283391
+# x: 20 	 Expectation: 0.004158973
+# x: 25 	 Expectation: 0.0003583685
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 \subsection{Plotting/ Goodness-of-fit}
 \label{subsec:bgnbdPlotting}
@@ -986,9 +1288,13 @@ actual and expected frequencies within the calibration period. This is
 figure \ref{fig:bgnbdCalibrationFit}, which was generated using the
 following code:
 
-<<results="hide", eval=FALSE>>=
-bgnbd.PlotFrequencyInCalibration(params, cal.cbs, 7)
-@ 
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{bgnbd.PlotFrequencyInCalibration}\hlstd{(params, cal.cbs,} \hlnum{7}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 This function obviously needs to be able to generate expected data
 (from estimated parameters) and requires the actual data (the
@@ -1013,19 +1319,29 @@ transactions in the calibration period from the total number of
 transactions. We remove the initial transactions first as we are not
 concerned with them.
 
-<<message=FALSE>>=
-elog <- dc.SplitUpElogForRepeatTrans(elog)$repeat.trans.elog;
-x.star <- rep(0, nrow(cal.cbs));
-cal.cbs <- cbind(cal.cbs, x.star);
-elog.custs <- elog$cust;
-for (i in 1:nrow(cal.cbs)){
-  current.cust <- rownames(cal.cbs)[i]
-  tot.cust.trans <- length(which(elog.custs == current.cust))
-  cal.trans <- cal.cbs[i, "x"]
-  cal.cbs[i, "x.star"] <-  tot.cust.trans - cal.trans
-}
-cal.cbs[1:3,]
-@ 
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{elog} \hlkwb{<-} \hlkwd{dc.SplitUpElogForRepeatTrans}\hlstd{(elog)}\hlopt{$}\hlstd{repeat.trans.elog;}
+\hlstd{x.star} \hlkwb{<-} \hlkwd{rep}\hlstd{(}\hlnum{0}\hlstd{,} \hlkwd{nrow}\hlstd{(cal.cbs));}
+\hlstd{cal.cbs} \hlkwb{<-} \hlkwd{cbind}\hlstd{(cal.cbs, x.star);}
+\hlstd{elog.custs} \hlkwb{<-} \hlstd{elog}\hlopt{$}\hlstd{cust;}
+\hlkwa{for} \hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlkwd{nrow}\hlstd{(cal.cbs))\{}
+  \hlstd{current.cust} \hlkwb{<-} \hlkwd{rownames}\hlstd{(cal.cbs)[i]}
+  \hlstd{tot.cust.trans} \hlkwb{<-} \hlkwd{length}\hlstd{(}\hlkwd{which}\hlstd{(elog.custs} \hlopt{==} \hlstd{current.cust))}
+  \hlstd{cal.trans} \hlkwb{<-} \hlstd{cal.cbs[i,} \hlstr{"x"}\hlstd{]}
+  \hlstd{cal.cbs[i,} \hlstr{"x.star"}\hlstd{]} \hlkwb{<-}  \hlstd{tot.cust.trans} \hlopt{-} \hlstd{cal.trans}
+\hlstd{\}}
+\hlstd{cal.cbs[}\hlnum{1}\hlopt{:}\hlnum{3}\hlstd{,]}
+\end{alltt}
+\begin{verbatim}
+#   x       t.x    T.cal x.star
+# 1 2 30.428571 38.85714      1
+# 2 1  1.714286 38.85714      0
+# 3 0  0.000000 38.85714      0
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 Now we can see how well our model does in the holdout period. Figure
 \ref{fig:bgnbdCondExpComp} shows the output produced by the code below. It
@@ -1033,18 +1349,38 @@ divides the customers up into bins according to calibration period
 frequencies and plots actual and conditional expected holdout period
 frequencies for these bins.
 
-<<fig.path="figure/", label="bgnbdCondExpComp", tidy=FALSE, echo=TRUE, size="small", fig.keep='none'>>=
-T.star <- 39 # length of the holdout period
-censor <- 7  # This censor serves the same purpose described above
-x.star <- cal.cbs[,"x.star"]
+\begin{knitrout}\small
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{T.star} \hlkwb{<-} \hlnum{39} \hlcom{# length of the holdout period}
+\hlstd{censor} \hlkwb{<-} \hlnum{7}  \hlcom{# This censor serves the same purpose described above}
+\hlstd{x.star} \hlkwb{<-} \hlstd{cal.cbs[,}\hlstr{"x.star"}\hlstd{]}
 
-pdf(file = 'figure/bgnbdCondExpComp.pdf')
-comp <- bgnbd.PlotFreqVsConditionalExpectedFrequency(params, T.star,
-                                              cal.cbs, x.star, censor)
-dev.off()
-rownames(comp) <- c("act", "exp", "bin")
-comp
-@
+\hlkwd{pdf}\hlstd{(}\hlkwc{file} \hlstd{=} \hlstr{'figure/bgnbdCondExpComp.pdf'}\hlstd{)}
+\hlstd{comp} \hlkwb{<-} \hlkwd{bgnbd.PlotFreqVsConditionalExpectedFrequency}\hlstd{(params, T.star,}
+                                              \hlstd{cal.cbs, x.star, censor)}
+\hlkwd{dev.off}\hlstd{()}
+\end{alltt}
+\begin{verbatim}
+# pdf 
+#   2
+\end{verbatim}
+\begin{alltt}
+\hlkwd{rownames}\hlstd{(comp)} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlstr{"act"}\hlstd{,} \hlstr{"exp"}\hlstd{,} \hlstr{"bin"}\hlstd{)}
+\hlstd{comp}
+\end{alltt}
+\begin{verbatim}
+#           freq.0      freq.1     freq.2     freq.3    freq.4    freq.5
+# act    0.2367116   0.6970387   1.392523   1.560000  2.532258  2.947368
+# exp    0.2250893   0.5231364   1.044126   1.520256  2.163824  2.653789
+# bin 1411.0000000 439.0000000 214.000000 100.000000 62.000000 38.000000
+#        freq.6   freq.7+
+# act  3.862069  6.359375
+# exp  3.503957  6.157036
+# bin 29.000000 64.000000
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 \begin{figure}
   \begin{center}
@@ -1074,19 +1410,27 @@ collected the data for us by time period; so we'll use that to gather
 the total transactions per day. Then we convert the daily tracking
 data to weekly data.
 
-<<>>=
-tot.cbt <- dc.CreateFreqCBT(elog)
-d.track.data <- rep(0, 7 * 78)
-origin <- as.Date("1997-01-01")
-for (i in colnames(tot.cbt)){
-  date.index <- difftime(as.Date(i), origin) + 1;
-  d.track.data[date.index] <- sum(tot.cbt[,i]);
-}
-w.track.data <-  rep(0, 78)
-for (j in 1:78){
-  w.track.data[j] <- sum(d.track.data[(j*7-6):(j*7)])
-}
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{tot.cbt} \hlkwb{<-} \hlkwd{dc.CreateFreqCBT}\hlstd{(elog)}
+\end{alltt}
+
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\# ...Completed Freq CBT}}\begin{alltt}
+\hlstd{d.track.data} \hlkwb{<-} \hlkwd{rep}\hlstd{(}\hlnum{0}\hlstd{,} \hlnum{7} \hlopt{*} \hlnum{78}\hlstd{)}
+\hlstd{origin} \hlkwb{<-} \hlkwd{as.Date}\hlstd{(}\hlstr{"1997-01-01"}\hlstd{)}
+\hlkwa{for} \hlstd{(i} \hlkwa{in} \hlkwd{colnames}\hlstd{(tot.cbt))\{}
+  \hlstd{date.index} \hlkwb{<-} \hlkwd{difftime}\hlstd{(}\hlkwd{as.Date}\hlstd{(i), origin)} \hlopt{+} \hlnum{1}\hlstd{;}
+  \hlstd{d.track.data[date.index]} \hlkwb{<-} \hlkwd{sum}\hlstd{(tot.cbt[,i]);}
+\hlstd{\}}
+\hlstd{w.track.data} \hlkwb{<-}  \hlkwd{rep}\hlstd{(}\hlnum{0}\hlstd{,} \hlnum{78}\hlstd{)}
+\hlkwa{for} \hlstd{(j} \hlkwa{in} \hlnum{1}\hlopt{:}\hlnum{78}\hlstd{)\{}
+  \hlstd{w.track.data[j]} \hlkwb{<-} \hlkwd{sum}\hlstd{(d.track.data[(j}\hlopt{*}\hlnum{7}\hlopt{-}\hlnum{6}\hlstd{)}\hlopt{:}\hlstd{(j}\hlopt{*}\hlnum{7}\hlstd{)])}
+\hlstd{\}}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 Now, we can make a plot comparing the actual number of transactions to
 the expected number of transactions on a weekly basis, as shown in
@@ -1102,20 +1446,35 @@ the total period (\texttt{T.tot} and \texttt{n.periods.final}) is that
 your customer-by-sufficient-statistic matrix and your tracking data
 may be in different time periods.
 
-<<fig.path="figure/", label="bgnbdTrackingInc", tidy=FALSE, echo=TRUE, fig.keep='none'>>=
-T.cal <- cal.cbs[,"T.cal"]
-T.tot <- 78
-n.periods.final <- 78
-pdf(file = 'figure/bgnbdTrackingInc.pdf')
-inc.tracking <- bgnbd.PlotTrackingInc(params, 
-                                      T.cal, 
-                                      T.tot, 
-                                      w.track.data,
-                                      n.periods.final, 
-                                      allHardie)
-dev.off()
-inc.tracking[,20:25]
-@ 
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{T.cal} \hlkwb{<-} \hlstd{cal.cbs[,}\hlstr{"T.cal"}\hlstd{]}
+\hlstd{T.tot} \hlkwb{<-} \hlnum{78}
+\hlstd{n.periods.final} \hlkwb{<-} \hlnum{78}
+\hlkwd{pdf}\hlstd{(}\hlkwc{file} \hlstd{=} \hlstr{'figure/bgnbdTrackingInc.pdf'}\hlstd{)}
+\hlstd{inc.tracking} \hlkwb{<-} \hlkwd{bgnbd.PlotTrackingInc}\hlstd{(params,}
+                                      \hlstd{T.cal,}
+                                      \hlstd{T.tot,}
+                                      \hlstd{w.track.data,}
+                                      \hlstd{n.periods.final,}
+                                      \hlstd{allHardie)}
+\hlkwd{dev.off}\hlstd{()}
+\end{alltt}
+\begin{verbatim}
+# pdf 
+#   2
+\end{verbatim}
+\begin{alltt}
+\hlstd{inc.tracking[,}\hlnum{20}\hlopt{:}\hlnum{25}\hlstd{]}
+\end{alltt}
+\begin{verbatim}
+#              [,1]     [,2]     [,3]     [,4]     [,5]     [,6]
+# actual   73.00000 55.00000 70.00000 33.00000 56.00000 99.00000
+# expected 76.86531 74.88843 73.04554 71.32166 69.70412 68.18213
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 \begin{figure}
   \begin{center}
@@ -1132,19 +1491,33 @@ purchases can vary so much from one week to the next. For these
 reasons, we may need to smooth the data out by cumulating it over
 time, as shown in Figure \ref{fig:bgnbdTrackingCum}.
 
-<<fig.path="figure/", label="bgnbdTrackingCum", tidy=FALSE, echo=TRUE, fig.keep='none'>>=
-
-cum.tracking.data <- cumsum(w.track.data)
-pdf(file = 'figure/bgnbdTrackingCum.pdf')
-cum.tracking <- bgnbd.PlotTrackingCum(params, 
-                                      T.cal, 
-                                      T.tot, 
-                                      cum.tracking.data,
-                                      n.periods.final, 
-                                      allHardie)
-dev.off()
-cum.tracking[,20:25]
-@ 
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{cum.tracking.data} \hlkwb{<-} \hlkwd{cumsum}\hlstd{(w.track.data)}
+\hlkwd{pdf}\hlstd{(}\hlkwc{file} \hlstd{=} \hlstr{'figure/bgnbdTrackingCum.pdf'}\hlstd{)}
+\hlstd{cum.tracking} \hlkwb{<-} \hlkwd{bgnbd.PlotTrackingCum}\hlstd{(params,}
+                                      \hlstd{T.cal,}
+                                      \hlstd{T.tot,}
+                                      \hlstd{cum.tracking.data,}
+                                      \hlstd{n.periods.final,}
+                                      \hlstd{allHardie)}
+\hlkwd{dev.off}\hlstd{()}
+\end{alltt}
+\begin{verbatim}
+# pdf 
+#   2
+\end{verbatim}
+\begin{alltt}
+\hlstd{cum.tracking[,}\hlnum{20}\hlopt{:}\hlnum{25}\hlstd{]}
+\end{alltt}
+\begin{verbatim}
+#              [,1]     [,2]     [,3]     [,4]     [,5]   [,6]
+# actual   1359.000 1414.000 1484.000 1517.000 1573.000 1672.0
+# expected 1312.458 1387.346 1460.392 1531.713 1601.418 1669.6
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 \begin{figure}
   \begin{center}
@@ -1171,14 +1544,7 @@ time. For this section, we will be using donation data presented in
 Fader et. al. (2010). Figure \ref{fig:bgbbCalibrationFit} shows that
 this model also fits the right type of data well.
 
-<<fig.path="figure/", label="bgbbCalibrationFit", results="hide", echo=FALSE, include=FALSE>>=
-data(donationsSummary)
-rf.matrix <- donationsSummary$rf.matrix
-params <- bgbb.EstimateParameters(rf.matrix)
-pdf(file = 'figure/bgbbCalibrationFit.pdf')
-cal.fit <- bgbb.PlotFrequencyInCalibration(params, rf.matrix, 6)
-dev.off()
-@ 
+
 
 \begin{figure}
   \begin{center}
@@ -1208,27 +1574,57 @@ Since I don't have access to the original event log for the donation
 data, I am going to demonstrate the data preparation process with
 simulated data (included in the package):
 
-<<message=FALSE, tidy=FALSE>>=
-simElog <- system.file("data/discreteSimElog.csv", 
-                       package = "BTYD")
-elog <- dc.ReadLines(simElog, cust.idx = 1, date.idx = 2)
-elog[1:3,]
-elog$date <- as.Date(elog$date, "%Y-%m-%d")
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{simElog} \hlkwb{<-} \hlkwd{system.file}\hlstd{(}\hlstr{"data/discreteSimElog.csv"}\hlstd{,}
+                       \hlkwc{package} \hlstd{=} \hlstr{"BTYD"}\hlstd{)}
+\hlstd{elog} \hlkwb{<-} \hlkwd{dc.ReadLines}\hlstd{(simElog,} \hlkwc{cust.idx} \hlstd{=} \hlnum{1}\hlstd{,} \hlkwc{date.idx} \hlstd{=} \hlnum{2}\hlstd{)}
+\hlstd{elog[}\hlnum{1}\hlopt{:}\hlnum{3}\hlstd{,]}
+\end{alltt}
+\begin{verbatim}
+#   cust       date
+# 1    1 1970-01-01
+# 2    1 1975-01-01
+# 3    1 1977-01-01
+\end{verbatim}
+\begin{alltt}
+\hlstd{elog}\hlopt{$}\hlstd{date} \hlkwb{<-} \hlkwd{as.Date}\hlstd{(elog}\hlopt{$}\hlstd{date,} \hlstr{"%Y-%m-%d"}\hlstd{)}
 
-max(elog$date);
-min(elog$date);
-# let's make the calibration period end somewhere in-between
-T.cal <- as.Date("1977-01-01")
+\hlkwd{max}\hlstd{(elog}\hlopt{$}\hlstd{date);}
+\end{alltt}
+\begin{verbatim}
+# [1] "1983-01-01"
+\end{verbatim}
+\begin{alltt}
+\hlkwd{min}\hlstd{(elog}\hlopt{$}\hlstd{date);}
+\end{alltt}
+\begin{verbatim}
+# [1] "1970-01-01"
+\end{verbatim}
+\begin{alltt}
+\hlcom{# let's make the calibration period end somewhere in-between}
+\hlstd{T.cal} \hlkwb{<-} \hlkwd{as.Date}\hlstd{(}\hlstr{"1977-01-01"}\hlstd{)}
 
-simData <- dc.ElogToCbsCbt(elog, per="year", T.cal)
-cal.cbs <- simData$cal$cbs
+\hlstd{simData} \hlkwb{<-} \hlkwd{dc.ElogToCbsCbt}\hlstd{(elog,} \hlkwc{per}\hlstd{=}\hlstr{"year"}\hlstd{, T.cal)}
+\hlstd{cal.cbs} \hlkwb{<-} \hlstd{simData}\hlopt{$}\hlstd{cal}\hlopt{$}\hlstd{cbs}
 
-freq<- cal.cbs[,"x"]
-rec <- cal.cbs[,"t.x"]
-trans.opp <- 7 # transaction opportunities
-cal.rf.matrix <- dc.MakeRFmatrixCal(freq, rec, trans.opp)
-cal.rf.matrix[1:5,]
-@ 
+\hlstd{freq}\hlkwb{<-} \hlstd{cal.cbs[,}\hlstr{"x"}\hlstd{]}
+\hlstd{rec} \hlkwb{<-} \hlstd{cal.cbs[,}\hlstr{"t.x"}\hlstd{]}
+\hlstd{trans.opp} \hlkwb{<-} \hlnum{7} \hlcom{# transaction opportunities}
+\hlstd{cal.rf.matrix} \hlkwb{<-} \hlkwd{dc.MakeRFmatrixCal}\hlstd{(freq, rec, trans.opp)}
+\hlstd{cal.rf.matrix[}\hlnum{1}\hlopt{:}\hlnum{5}\hlstd{,]}
+\end{alltt}
+\begin{verbatim}
+#      x t.x n.cal custs
+# [1,] 0   0     7  2900
+# [2,] 1   1     7   933
+# [3,] 1   2     7   218
+# [4,] 2   2     7   489
+# [5,] 1   3     7    95
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 \subsection{Parameter Estimation}
 
@@ -1240,22 +1636,32 @@ times with its own output as starting parameters, to make sure that
 our estimation converges. One should also test the estimation from
 different starting points, but I am not going to do that here.
 
-<<>>=
-data(donationsSummary);
-rf.matrix <- donationsSummary$rf.matrix
-params <- bgbb.EstimateParameters(rf.matrix);
-LL <- bgbb.rf.matrix.LL(params, rf.matrix);
-p.matrix <- c(params, LL);
-for (i in 1:2){
-params <- bgbb.EstimateParameters(rf.matrix, params);
-LL <- bgbb.rf.matrix.LL(params, rf.matrix);
-p.matrix.row <- c(params, LL);
-p.matrix <- rbind(p.matrix, p.matrix.row);
-}
-colnames(p.matrix) <- c("alpha", "beta", "gamma", "delta", "LL");
-rownames(p.matrix) <- 1:3;
-p.matrix;
-@ 
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{data}\hlstd{(donationsSummary);}
+\hlstd{rf.matrix} \hlkwb{<-} \hlstd{donationsSummary}\hlopt{$}\hlstd{rf.matrix}
+\hlstd{params} \hlkwb{<-} \hlkwd{bgbb.EstimateParameters}\hlstd{(rf.matrix);}
+\hlstd{LL} \hlkwb{<-} \hlkwd{bgbb.rf.matrix.LL}\hlstd{(params, rf.matrix);}
+\hlstd{p.matrix} \hlkwb{<-} \hlkwd{c}\hlstd{(params, LL);}
+\hlkwa{for} \hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlnum{2}\hlstd{)\{}
+\hlstd{params} \hlkwb{<-} \hlkwd{bgbb.EstimateParameters}\hlstd{(rf.matrix, params);}
+\hlstd{LL} \hlkwb{<-} \hlkwd{bgbb.rf.matrix.LL}\hlstd{(params, rf.matrix);}
+\hlstd{p.matrix.row} \hlkwb{<-} \hlkwd{c}\hlstd{(params, LL);}
+\hlstd{p.matrix} \hlkwb{<-} \hlkwd{rbind}\hlstd{(p.matrix, p.matrix.row);}
+\hlstd{\}}
+\hlkwd{colnames}\hlstd{(p.matrix)} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlstr{"alpha"}\hlstd{,} \hlstr{"beta"}\hlstd{,} \hlstr{"gamma"}\hlstd{,} \hlstr{"delta"}\hlstd{,} \hlstr{"LL"}\hlstd{);}
+\hlkwd{rownames}\hlstd{(p.matrix)} \hlkwb{<-} \hlnum{1}\hlopt{:}\hlnum{3}\hlstd{;}
+\hlstd{p.matrix;}
+\end{alltt}
+\begin{verbatim}
+#      alpha      beta     gamma    delta        LL
+# 1 1.203507 0.7497667 0.6567568 2.783887 -33225.58
+# 2 1.203533 0.7497272 0.6567788 2.783812 -33225.58
+# 3 1.203528 0.7497260 0.6567808 2.783796 -33225.58
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 The parameter estimation converges very quickly. It is much easier,
 and faster, to estimate BG/BB parameters than it is to estimate
@@ -1275,11 +1681,7 @@ by these plots describes the type of customers most firms would
 want---their transaction parameters are more likely to be high, and
 their dropout parameters are more likely to be low.
 
-<<fig.path="figure/", label="bgbbTransactionHeterogeneity", results="hide", include=FALSE>>=
-pdf(file = 'figure/bgbbTransactionHeterogeneity.pdf')
-bgbb.PlotTransactionRateHeterogeneity(params)
-dev.off()
-@ 
+
 
 \begin{figure}
   \begin{center}
@@ -1288,11 +1690,7 @@ dev.off()
   \end{center}
 \end{figure}
       
-<<fig.path="figure/", label="bgbbDropoutHeterogeneity", results="hide", include=FALSE>>=
-pdf(file = 'figure/bgbbDropoutHeterogeneity.pdf')
-bgbb.PlotDropoutRateHeterogeneity(params)
-dev.off()
-@ 
+
 
 \begin{figure}
   \begin{center}
@@ -1311,9 +1709,16 @@ make in a period of 10 years. The same rules that we used for
 Pareto/NBD functions also apply to BG/BB functions: since we used
 years to estimate the parameters, we stick to years to represent time
 periods.
-<<>>=
-bgbb.Expectation(params, n=10);
-@ 
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{bgbb.Expectation}\hlstd{(params,} \hlkwc{n}\hlstd{=}\hlnum{10}\hlstd{);}
+\end{alltt}
+\begin{verbatim}
+# [1] 3.179805
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 
 But we want to be able to say something about our existing customers,
@@ -1324,20 +1729,32 @@ period of 10 years. I am going to do this for 2 customers: A, who made
 transactions in the calibration period, with the last transaction
 occuring in the 5th year.
 
-<<tidy=FALSE>>=
-# customer A
-n.cal = 6
-n.star = 10
-x = 0
-t.x = 0
-bgbb.ConditionalExpectedTransactions(params, n.cal, 
-                                     n.star, x, t.x)
-# customer B
-x = 4
-t.x = 5
-bgbb.ConditionalExpectedTransactions(params, n.cal, 
-                                     n.star, x, t.x)
-@ 
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# customer A}
+\hlstd{n.cal} \hlkwb{=} \hlnum{6}
+\hlstd{n.star} \hlkwb{=} \hlnum{10}
+\hlstd{x} \hlkwb{=} \hlnum{0}
+\hlstd{t.x} \hlkwb{=} \hlnum{0}
+\hlkwd{bgbb.ConditionalExpectedTransactions}\hlstd{(params, n.cal,}
+                                     \hlstd{n.star, x, t.x)}
+\end{alltt}
+\begin{verbatim}
+# [1] 0.1302169
+\end{verbatim}
+\begin{alltt}
+\hlcom{# customer B}
+\hlstd{x} \hlkwb{=} \hlnum{4}
+\hlstd{t.x} \hlkwb{=} \hlnum{5}
+\hlkwd{bgbb.ConditionalExpectedTransactions}\hlstd{(params, n.cal,}
+                                     \hlstd{n.star, x, t.x)}
+\end{alltt}
+\begin{verbatim}
+# [1] 3.627858
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 As expected, B's conditional expectation is much higher than A's. The
 point I am trying to make, however, is that there are 3464 A's in this
@@ -1349,9 +1766,13 @@ models.
 Figure \ref{fig:pnbdCalibrationFit}, is the first plot to test the
 goodness-of-fit: a simple calibration period histogram. 
 
-<<results="hide", eval=FALSE>>=
-bgbb.PlotFrequencyInCalibration(params, rf.matrix)
-@ 
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{bgbb.PlotFrequencyInCalibration}\hlstd{(params, rf.matrix)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 As with the equivalent Pareto/NBD plot, keep in mind that this plot is
 only useful for an initial verification that the fit of the BG/BB
@@ -1362,10 +1783,14 @@ period. When we used \texttt{dc.ElogToCbsCbt} earlier, we ignored a
 lot of the data it generated. It is easy to get the holdout period
 frequencies from that data:
 
-<<>>=
-holdout.cbs <- simData$holdout$cbs
-x.star <- holdout.cbs[,"x.star"]
-@ 
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{holdout.cbs} \hlkwb{<-} \hlstd{simData}\hlopt{$}\hlstd{holdout}\hlopt{$}\hlstd{cbs}
+\hlstd{x.star} \hlkwb{<-} \hlstd{holdout.cbs[,}\hlstr{"x.star"}\hlstd{]}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
   
 At this point, we can switch from simulated data to the real
 discrete data (donation data) provided with the package. The holdout
@@ -1377,16 +1802,36 @@ according to calibration period frequencies.
  
 \clearpage
 
-<<fig.path="figure/", label="bgbbCondExpComp", tidy=FALSE, echo=TRUE, size="small", fig.keep='none'>>=
-n.star <- 5 # length of the holdout period
-x.star <- donationsSummary$x.star
-pdf(file = 'figure/bgbbCondExpComp.pdf')
-comp <- bgbb.PlotFreqVsConditionalExpectedFrequency(params, n.star, 
-                                                    rf.matrix, x.star)
-dev.off()
-rownames(comp) <- c("act", "exp", "bin")
-comp
-@
+\begin{knitrout}\small
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{n.star} \hlkwb{<-} \hlnum{5} \hlcom{# length of the holdout period}
+\hlstd{x.star} \hlkwb{<-} \hlstd{donationsSummary}\hlopt{$}\hlstd{x.star}
+\hlkwd{pdf}\hlstd{(}\hlkwc{file} \hlstd{=} \hlstr{'figure/bgbbCondExpComp.pdf'}\hlstd{)}
+\hlstd{comp} \hlkwb{<-} \hlkwd{bgbb.PlotFreqVsConditionalExpectedFrequency}\hlstd{(params, n.star,}
+                                                    \hlstd{rf.matrix, x.star)}
+\hlkwd{dev.off}\hlstd{()}
+\end{alltt}
+\begin{verbatim}
+# pdf 
+#   2
+\end{verbatim}
+\begin{alltt}
+\hlkwd{rownames}\hlstd{(comp)} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlstr{"act"}\hlstd{,} \hlstr{"exp"}\hlstd{,} \hlstr{"bin"}\hlstd{)}
+\hlstd{comp}
+\end{alltt}
+\begin{verbatim}
+#           freq.0       freq.1       freq.2      freq.3      freq.4      freq.5
+# act 1.743649e-01    0.4328031    0.8125874    1.389862    2.061776    2.642521
+# exp 7.286318e-02    0.3248841    0.7089417    1.333666    2.031203    2.784482
+# bin 3.464000e+03 1823.0000000 1430.0000000 1085.000000 1036.000000 1063.000000
+#          freq.6
+# act    3.534497
+# exp    3.752500
+# bin 1203.000000
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 \begin{figure}
   \begin{center}
@@ -1399,14 +1844,34 @@ Since the BG/BB model uses discrete data, we can also bin customers by
 recency. Figure \ref{fig:bgbbCondExpCompRec} shows the fit of holdout
 period frequencies, with customers binned in this manner.
 
-<<fig.path="figure/", label="bgbbCondExpCompRec", tidy=FALSE, echo=TRUE, size="small", fig.keep='none'>>=
-pdf(file = 'figure/bgbbCondExpCompRec.pdf')
-comp <- bgbb.PlotRecVsConditionalExpectedFrequency(params, n.star, 
-                                                   rf.matrix, x.star)
-dev.off()
-rownames(comp) <- c("act", "exp", "bin")
-comp
-@
+\begin{knitrout}\small
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{pdf}\hlstd{(}\hlkwc{file} \hlstd{=} \hlstr{'figure/bgbbCondExpCompRec.pdf'}\hlstd{)}
+\hlstd{comp} \hlkwb{<-} \hlkwd{bgbb.PlotRecVsConditionalExpectedFrequency}\hlstd{(params, n.star,}
+                                                   \hlstd{rf.matrix, x.star)}
+\hlkwd{dev.off}\hlstd{()}
+\end{alltt}
+\begin{verbatim}
+# pdf 
+#   2
+\end{verbatim}
+\begin{alltt}
+\hlkwd{rownames}\hlstd{(comp)} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlstr{"act"}\hlstd{,} \hlstr{"exp"}\hlstd{,} \hlstr{"bin"}\hlstd{)}
+\hlstd{comp}
+\end{alltt}
+\begin{verbatim}
+#            rec.0        rec.1       rec.2       rec.3       rec.4       rec.5
+# act 1.743649e-01    0.2181485   0.3898876   0.4872521   0.8088685    1.652289
+# exp 7.286318e-02    0.0856939   0.1798423   0.4041111   0.8510811    1.726323
+# bin 3.464000e+03 1091.0000000 890.0000000 706.0000000 654.0000000 1136.000000
+#           rec.6
+# act    2.946886
+# exp    3.027190
+# bin 3163.000000
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 \begin{figure}
   \begin{center}
@@ -1423,18 +1888,36 @@ log; however, the process will be exactly the same as described in
 section \ref{subsec:pnbdPlotting}. The annual transaction data is
 provided by the package. 
 
-<<fig.path="figure/", label="bgbbTrackingInc", tidy=FALSE, echo=TRUE, fig.keep='none'>>=
-inc.track.data <- donationsSummary$annual.trans
-n.cal <- 6
-xtickmarks <- 1996:2006
-pdf(file = 'figure/bgbbTrackingInc.pdf')
-inc.tracking <- bgbb.PlotTrackingInc(params, rf.matrix, 
-                                     inc.track.data, 
-                                     xticklab = xtickmarks)
-dev.off()
-rownames(inc.tracking) <- c("act", "exp")
-inc.tracking
-@ 
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{inc.track.data} \hlkwb{<-} \hlstd{donationsSummary}\hlopt{$}\hlstd{annual.trans}
+\hlstd{n.cal} \hlkwb{<-} \hlnum{6}
+\hlstd{xtickmarks} \hlkwb{<-} \hlnum{1996}\hlopt{:}\hlnum{2006}
+\hlkwd{pdf}\hlstd{(}\hlkwc{file} \hlstd{=} \hlstr{'figure/bgbbTrackingInc.pdf'}\hlstd{)}
+\hlstd{inc.tracking} \hlkwb{<-} \hlkwd{bgbb.PlotTrackingInc}\hlstd{(params, rf.matrix,}
+                                     \hlstd{inc.track.data,}
+                                     \hlkwc{xticklab} \hlstd{= xtickmarks)}
+\hlkwd{dev.off}\hlstd{()}
+\end{alltt}
+\begin{verbatim}
+# pdf 
+#   2
+\end{verbatim}
+\begin{alltt}
+\hlkwd{rownames}\hlstd{(inc.tracking)} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlstr{"act"}\hlstd{,} \hlstr{"exp"}\hlstd{)}
+\hlstd{inc.tracking}
+\end{alltt}
+\begin{verbatim}
+#         [,1]     [,2]     [,3]     [,4]     [,5]     [,6]     [,7]     [,8]
+# act 5652.000 4674.000 4019.000 3552.000 3555.000 3163.000 3110.000 2938.000
+# exp 5535.833 4717.059 4147.621 3724.665 3395.888 3131.647 2913.778 2730.482
+#         [,9]    [,10]    [,11]
+# act 2703.000 2573.000 1936.000
+# exp 2573.731 2437.854 2318.727
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 \begin{figure}
   \begin{center}
@@ -1447,15 +1930,33 @@ Figure \ref{fig:bgbbTrackingInc} shows remarkable fit, but we can
 smooth it out for a cleaner graph by making it cumulative (as shown in
 figure \ref{fig:bgbbTrackingCum}).
 
-<<fig.path="figure/", label="bgbbTrackingCum", tidy=FALSE, echo=TRUE, size="small", fig.keep='none'>>=
-cum.track.data <- cumsum(inc.track.data)
-pdf(file = 'figure/bgbbTrackingCum.pdf')
-cum.tracking <- bgbb.PlotTrackingCum(params, rf.matrix, cum.track.data, 
-                                     xticklab = xtickmarks)
-dev.off()
-rownames(cum.tracking) <- c("act", "exp")
-cum.tracking
-@ 
+\begin{knitrout}\small
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{cum.track.data} \hlkwb{<-} \hlkwd{cumsum}\hlstd{(inc.track.data)}
+\hlkwd{pdf}\hlstd{(}\hlkwc{file} \hlstd{=} \hlstr{'figure/bgbbTrackingCum.pdf'}\hlstd{)}
+\hlstd{cum.tracking} \hlkwb{<-} \hlkwd{bgbb.PlotTrackingCum}\hlstd{(params, rf.matrix, cum.track.data,}
+                                     \hlkwc{xticklab} \hlstd{= xtickmarks)}
+\hlkwd{dev.off}\hlstd{()}
+\end{alltt}
+\begin{verbatim}
+# pdf 
+#   2
+\end{verbatim}
+\begin{alltt}
+\hlkwd{rownames}\hlstd{(cum.tracking)} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlstr{"act"}\hlstd{,} \hlstr{"exp"}\hlstd{)}
+\hlstd{cum.tracking}
+\end{alltt}
+\begin{verbatim}
+#         [,1]     [,2]     [,3]     [,4]     [,5]     [,6]     [,7]     [,8]
+# act 5652.000 10326.00 14345.00 17897.00 21452.00 24615.00 27725.00 30663.00
+# exp 5535.833 10252.89 14400.51 18125.18 21521.07 24652.71 27566.49 30296.97
+#        [,9]    [,10]    [,11]
+# act 33366.0 35939.00 37875.00
+# exp 32870.7 35308.56 37627.29
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 \begin{figure}
   \begin{center}

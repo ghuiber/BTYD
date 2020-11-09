@@ -44,7 +44,7 @@ the customer's last transaction date, and the total time period for which the
 customer was observed.
 }
 \examples{
-elog <- dc.ReadLines(system.file("data/cdnowElog.csv", package="BTYD2"),2,3,5)
+elog <- dc.ReadLines(system.file("data/cdnowElog.csv", package="BTYD"),2,3,5)
 elog[,"date"] <- as.Date(elog[,"date"], "\%Y\%m\%d")
 
 # Transaction-flow models are about interpurchase times. Since we

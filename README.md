@@ -1,6 +1,6 @@
 # BTYD 2.4.1
 
-A patch for the `pnbd.LL()` function in the original [BTYD](http://cran.r-project.org/web/packages/BTYD/index.html) package, 
+A patch for the `pnbd.LL()` function in the original [BTYD](https://CRAN.R-project.org/package=BTYD) package, 
 first proposed by [Theo Strinopoulos](https://github.com/theofilos). 
 
 ## Justification

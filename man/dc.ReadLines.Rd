@@ -29,7 +29,7 @@ the event log to work with other functions in this library. See the as.Date func
 # Create event log from file "cdnowElog.csv", which has
 # customer IDs in the second column, dates in the third column, and
 # sales numbers in the fifth column.
-elog <- dc.ReadLines(system.file("data/cdnowElog.csv", package="BTYD2"),2,3,5)
+elog <- dc.ReadLines(system.file("data/cdnowElog.csv", package="BTYD"),2,3,5)
 
 # convert date column to date objects, as required by some other functions
 elog$date <- as.Date(elog$date, "$Y\%m\%d")

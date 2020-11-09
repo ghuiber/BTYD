@@ -36,7 +36,7 @@ occasion the data will not be available in event log format and you may not
 be able to construct a CBT for both time periods together.
 }
 \examples{
-elog <- dc.ReadLines(system.file("data/cdnowElog.csv", package="BTYD2"),2,3,5)
+elog <- dc.ReadLines(system.file("data/cdnowElog.csv", package="BTYD"),2,3,5)
 elog[,"date"] <- as.Date(elog[,"date"], "\%Y\%m\%d")
 cutoff.date <- as.Date("1997-09-30")
 cal.elog <- elog[which(elog[,"date"] <= cutoff.date),]
