@@ -1,3 +1,5 @@
 figure$
 \\.git$
 \\.gitignore$
+^doc$
+^Meta$
