@@ -7,6 +7,5 @@ setwd(file.path(Sys.getenv()['HOME'], 'BTYD'))
 
 document()
 build()
-install()
-build_vignettes()
+install(build_vignettes = TRUE)
 check()

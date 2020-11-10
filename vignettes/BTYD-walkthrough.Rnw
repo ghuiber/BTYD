@@ -23,17 +23,16 @@ concordance=TRUE
 \maketitle %generate the title
 %\tableofcontents %insert the table of contents
 
-\section{Gabi Huiber's Disclaimer (November 7, 2020)}
+\section{Version 2.4.1 Overview}
 
-This is my attempt to patch the 
-Pareto/NBD component of the original BTYD package 
+This version patches the Pareto/NBD component of BTYD 2.4 
 using the fix that Theo Strinopoulos proposed \href{https://github.com/theofilos/BTYD}{here}. 
 
-Everything below this disclaimer is the authors' original text. The only 
-difference is that all evaluated references to BTYD file paths, 
-libraries, etc. now point to their patched BTYD counterparts. 
+Everything below this section reads identically to the vignette of
+BTYD 2.4. The main difference is that all evaluated references to BTYD 
+file paths, libraries, etc. now point to their patched counterparts. 
 
-These patched counterparts have been modified as follows: 
+The patched BTYD functions have been modified as follows: 
 \begin{itemize}
 \item Some functions stored in \texttt{R/pnbd.R} (you can tell them by their names, 
 which start with \texttt{pnbd}) have been changed. 
@@ -78,7 +77,7 @@ provided by the BTYD package using the CDNOW\footnote{Provided with
 figure \ref{fig:pnbdCalibrationFit}, the Pareto/NBD model describes
 this dataset quite well.
 
-<<fig.path="figure/", label="pnbdCalibrationFit", results="hide", echo=FALSE, include=FALSE>>=
+<<fig.path="", label="pnbdCalibrationFit", results="hide", echo=FALSE, include=FALSE>>=
 library(knitr)
 opts_chunk$set(comment="#")
 library(BTYD)
@@ -87,7 +86,7 @@ allHardie <- TRUE
 data(cdnowSummary)
 est.params <- cdnowSummary$est.params
 cal.cbs <- cdnowSummary$cbs
-pdf(file = 'figure/pnbdCalibrationFit.pdf')
+pdf(file = 'pnbdCalibrationFit.pdf')
 cal.fit <- pnbd.PlotFrequencyInCalibration(params = est.params, 
                                            cal.cbs = cal.cbs, 
                                            censor = 7, 
@@ -97,7 +96,7 @@ dev.off()
 
 \begin{figure}
   \begin{center}
-  \includegraphics[width=0.6\textwidth]{figure/pnbdCalibrationFit}
+  \includegraphics[width=0.6\textwidth]{pnbdCalibrationFit}
   \caption{Calibration period fit of Pareto/NBD model to CDNOW dataset.}\label{fig:pnbdCalibrationFit}
   \end{center}
 \end{figure}
@@ -344,28 +343,28 @@ are more likely to have low values for their individual poisson
 transaction process parameters, and more likely to have low values for
 their individual exponential dropout process parameters.
 
-<<fig.path="figure/", label="pnbdTransactionHeterogeneity", results="hide", include=FALSE>>=
-pdf(file = 'figure/pnbdTransactionHeterogeneity.pdf')
+<<fig.path="", label="pnbdTransactionHeterogeneity", results="hide", include=FALSE>>=
+pdf(file = 'pnbdTransactionHeterogeneity.pdf')
 pnbd.PlotTransactionRateHeterogeneity(params = params)
 dev.off()
 @ 
 
 \begin{figure}
   \begin{center}
-  \includegraphics[width=0.6\textwidth]{figure/pnbdTransactionHeterogeneity}
+  \includegraphics[width=0.6\textwidth]{pnbdTransactionHeterogeneity}
   \caption{Transaction rate heterogeneity of estimated parameters.}\label{fig:pnbdTransactionHeterogeneity}
   \end{center}
 \end{figure}
 
-<<fig.path="figure/", label="pnbdDropoutHeterogeneity", results="hide", include=FALSE>>=
-pdf(file = 'figure/pnbdDropoutHeterogeneity.pdf')
+<<fig.path="", label="pnbdDropoutHeterogeneity", results="hide", include=FALSE>>=
+pdf(file = 'pnbdDropoutHeterogeneity.pdf')
 pnbd.PlotDropoutRateHeterogeneity(params = params)
 dev.off()
 @ 
 
 \begin{figure}
   \begin{center}
-  \includegraphics[width=0.6\textwidth]{figure/pnbdDropoutHeterogeneity}
+  \includegraphics[width=0.6\textwidth]{pnbdDropoutHeterogeneity}
   \caption{Dropout rate heterogeneity of estimated parameters.}\label{fig:pnbdDropoutHeterogeneity}
   \end{center}
 \end{figure}
@@ -494,11 +493,11 @@ divides the customers up into bins according to calibration period
 frequencies and plots actual and conditional expected holdout period
 frequencies for these bins.
 
-<<fig.path="figure/", label="pnbdCondExpComp", tidy=FALSE, echo=TRUE, size="small", fig.keep='none'>>=
+<<fig.path="", label="pnbdCondExpComp", tidy=FALSE, echo=TRUE, size="small", fig.keep='none'>>=
 T.star <- 39 # length of the holdout period
 censor <- 7  # This censor serves the same purpose described above
 x.star <- cal.cbs[,"x.star"]
-pdf(file = 'figure/pnbdCondExpComp.pdf')
+pdf(file = 'pnbdCondExpComp.pdf')
 comp <- pnbd.PlotFreqVsConditionalExpectedFrequency(params, 
                                                     T.star, 
                                                     cal.cbs, 
@@ -512,7 +511,7 @@ round(comp, digits = 3)
 
 \begin{figure}
   \begin{center}
-  \includegraphics[width=0.6\textwidth]{figure/pnbdCondExpComp}
+  \includegraphics[width=0.6\textwidth]{pnbdCondExpComp}
   \caption{Actual vs. conditional expected transactions in the holdout period.}\label{fig:pnbdCondExpComp}
   \end{center}
 \end{figure}
@@ -566,12 +565,12 @@ the total period (\texttt{T.tot} and \texttt{n.periods.final}) is that
 your customer-by-sufficient-statistic matrix and your tracking data
 may be in different time periods.
 
-<<fig.path="figure/", label="pnbdTrackingInc", tidy=FALSE, echo=TRUE, fig.keep='none'>>=
+<<fig.path="", label="pnbdTrackingInc", tidy=FALSE, echo=TRUE, fig.keep='none'>>=
 T.cal <- cal.cbs[,"T.cal"]
 T.tot <- 78
 n.periods.final <- 78
 
-pdf(file = 'figure/pnbdTrackingInc.pdf')
+pdf(file = 'pnbdTrackingInc.pdf')
 inc.tracking <- pnbd.PlotTrackingInc(params = params, 
                                      T.cal = T.cal, 
                                      T.tot = T.tot, 
@@ -583,7 +582,7 @@ round(inc.tracking[,20:25], digits = 3)
 
 \begin{figure}
   \begin{center}
-  \includegraphics[width=0.6\textwidth]{figure/pnbdTrackingInc}
+  \includegraphics[width=0.6\textwidth]{pnbdTrackingInc}
   \caption{Actual vs. expected incremental purchasing behaviour.}\label{fig:pnbdTrackingInc}
   \end{center}
 \end{figure}
@@ -598,9 +597,9 @@ time, as shown in figure \ref{fig:pnbdTrackingCum}.
 
 
 
-<<fig.path="figure/", label="pnbdTrackingCum", tidy=FALSE, echo=TRUE, fig.keep='none'>>=
+<<fig.path="", label="pnbdTrackingCum", tidy=FALSE, echo=TRUE, fig.keep='none'>>=
 cum.tracking.data <- cumsum(w.track.data)
-pdf(file = 'figure/pnbdTrackingCum.pdf')
+pdf(file = 'pnbdTrackingCum.pdf')
 cum.tracking <- pnbd.PlotTrackingCum(params = params, 
                                      T.cal = T.cal, 
                                      T.tot = T.tot, 
@@ -612,7 +611,7 @@ round(cum.tracking[,20:25], digits = 3)
 
 \begin{figure}
   \begin{center}
-  \includegraphics[width=0.6\textwidth]{figure/pnbdTrackingCum}
+  \includegraphics[width=0.6\textwidth]{pnbdTrackingCum}
   \caption{Actual vs. expected cumulative purchasing behaviour.}\label{fig:pnbdTrackingCum}
   \end{center}
 \end{figure}
@@ -640,18 +639,18 @@ CDNOW\footnote{Provided with
 figure \ref{fig:bgnbdCalibrationFit}, the BG/NBD model describes
 this dataset quite well.
 
-<<fig.path="figure/", label="bgnbdCalibrationFit", results="hide", echo=FALSE, include=FALSE>>=
+<<fig.path="", label="bgnbdCalibrationFit", results="hide", echo=FALSE, include=FALSE>>=
 data(cdnowSummary);
 est.params <- c(0.243, 4.414, 0.793, 2.426);
 cal.cbs <- cdnowSummary$cbs;
-pdf(file = 'figure/bgnbdCalibrationFit.pdf')
+pdf(file = 'bgnbdCalibrationFit.pdf')
 cal.fit <- bgnbd.PlotFrequencyInCalibration(est.params, cal.cbs, 7)
 dev.off()
 @ 
 
 \begin{figure}
   \begin{center}
-  \includegraphics[width=0.6\textwidth]{figure/bgnbdCalibrationFit}
+  \includegraphics[width=0.6\textwidth]{bgnbdCalibrationFit}
   \caption{Calibration period fit of BG/NBD model to CDNOW dataset.}\label{fig:bgnbdCalibrationFit}
   \end{center}
 \end{figure}
@@ -899,28 +898,28 @@ are more likely to have low values for their individual poisson
 transaction process parameters, and more likely to have low values for
 their individual geometric dropout probability parameters.
 
-<<fig.path="figure/", label="bgnbdTransactionHeterogeneity", results="hide", include=FALSE>>=
-pdf(file = 'figure/bgnbdTransactionHeterogeneity.pdf')
+<<fig.path="", label="bgnbdTransactionHeterogeneity", results="hide", include=FALSE>>=
+pdf(file = 'bgnbdTransactionHeterogeneity.pdf')
 bgnbd.PlotTransactionRateHeterogeneity(params)
 dev.off()
 @ 
 
 \begin{figure}
   \begin{center}
-  \includegraphics[width=0.6\textwidth]{figure/bgnbdTransactionHeterogeneity}
+  \includegraphics[width=0.6\textwidth]{bgnbdTransactionHeterogeneity}
   \caption{Transaction rate heterogeneity of estimated parameters.}\label{fig:bgnbdTransactionHeterogeneity}
   \end{center}
 \end{figure}
       
-<<fig.path="figure/", label="bgnbdDropoutHeterogeneity", results="hide", include=FALSE>>=
-pdf(file = 'figure/bgnbdDropoutHeterogeneity.pdf')
+<<fig.path="", label="bgnbdDropoutHeterogeneity", results="hide", include=FALSE>>=
+pdf(file = 'bgnbdDropoutHeterogeneity.pdf')
 bgnbd.PlotDropoutRateHeterogeneity(params)
 dev.off()
 @ 
 
 \begin{figure}
   \begin{center}
-  \includegraphics[width=0.6\textwidth]{figure/bgnbdDropoutHeterogeneity}
+  \includegraphics[width=0.6\textwidth]{bgnbdDropoutHeterogeneity}
   \caption{Dropout probability heterogeneity of estimated parameters.}\label{fig:bgnbdDropoutHeterogeneity}
   \end{center}
 \end{figure}
@@ -1033,12 +1032,12 @@ divides the customers up into bins according to calibration period
 frequencies and plots actual and conditional expected holdout period
 frequencies for these bins.
 
-<<fig.path="figure/", label="bgnbdCondExpComp", tidy=FALSE, echo=TRUE, size="small", fig.keep='none'>>=
+<<fig.path="", label="bgnbdCondExpComp", tidy=FALSE, echo=TRUE, size="small", fig.keep='none'>>=
 T.star <- 39 # length of the holdout period
 censor <- 7  # This censor serves the same purpose described above
 x.star <- cal.cbs[,"x.star"]
 
-pdf(file = 'figure/bgnbdCondExpComp.pdf')
+pdf(file = 'bgnbdCondExpComp.pdf')
 comp <- bgnbd.PlotFreqVsConditionalExpectedFrequency(params, T.star,
                                               cal.cbs, x.star, censor)
 dev.off()
@@ -1048,7 +1047,7 @@ comp
 
 \begin{figure}
   \begin{center}
-  \includegraphics[width=0.6\textwidth]{figure/bgnbdCondExpComp}
+  \includegraphics[width=0.6\textwidth]{bgnbdCondExpComp}
   \caption{Actual vs. conditional expected transactions in the holdout period.}\label{fig:bgnbdCondExpComp}
   \end{center}
 \end{figure}
@@ -1102,11 +1101,11 @@ the total period (\texttt{T.tot} and \texttt{n.periods.final}) is that
 your customer-by-sufficient-statistic matrix and your tracking data
 may be in different time periods.
 
-<<fig.path="figure/", label="bgnbdTrackingInc", tidy=FALSE, echo=TRUE, fig.keep='none'>>=
+<<fig.path="", label="bgnbdTrackingInc", tidy=FALSE, echo=TRUE, fig.keep='none'>>=
 T.cal <- cal.cbs[,"T.cal"]
 T.tot <- 78
 n.periods.final <- 78
-pdf(file = 'figure/bgnbdTrackingInc.pdf')
+pdf(file = 'bgnbdTrackingInc.pdf')
 inc.tracking <- bgnbd.PlotTrackingInc(params, 
                                       T.cal, 
                                       T.tot, 
@@ -1119,7 +1118,7 @@ inc.tracking[,20:25]
 
 \begin{figure}
   \begin{center}
-  \includegraphics[width=0.6\textwidth]{figure/bgnbdTrackingInc}
+  \includegraphics[width=0.6\textwidth]{bgnbdTrackingInc}
   \caption{Actual vs. expected incremental purchasing behaviour.}\label{fig:bgnbdTrackingInc}
   \end{center}
 \end{figure}
@@ -1132,10 +1131,10 @@ purchases can vary so much from one week to the next. For these
 reasons, we may need to smooth the data out by cumulating it over
 time, as shown in Figure \ref{fig:bgnbdTrackingCum}.
 
-<<fig.path="figure/", label="bgnbdTrackingCum", tidy=FALSE, echo=TRUE, fig.keep='none'>>=
+<<fig.path="", label="bgnbdTrackingCum", tidy=FALSE, echo=TRUE, fig.keep='none'>>=
 
 cum.tracking.data <- cumsum(w.track.data)
-pdf(file = 'figure/bgnbdTrackingCum.pdf')
+pdf(file = 'bgnbdTrackingCum.pdf')
 cum.tracking <- bgnbd.PlotTrackingCum(params, 
                                       T.cal, 
                                       T.tot, 
@@ -1148,7 +1147,7 @@ cum.tracking[,20:25]
 
 \begin{figure}
   \begin{center}
-  \includegraphics[width=0.6\textwidth]{figure/bgnbdTrackingCum}
+  \includegraphics[width=0.6\textwidth]{bgnbdTrackingCum}
   \caption{Actual vs. expected cumulative purchasing behaviour.}\label{fig:bgnbdTrackingCum}
   \end{center}
 \end{figure}
@@ -1171,18 +1170,18 @@ time. For this section, we will be using donation data presented in
 Fader et. al. (2010). Figure \ref{fig:bgbbCalibrationFit} shows that
 this model also fits the right type of data well.
 
-<<fig.path="figure/", label="bgbbCalibrationFit", results="hide", echo=FALSE, include=FALSE>>=
+<<fig.path="", label="bgbbCalibrationFit", results="hide", echo=FALSE, include=FALSE>>=
 data(donationsSummary)
 rf.matrix <- donationsSummary$rf.matrix
 params <- bgbb.EstimateParameters(rf.matrix)
-pdf(file = 'figure/bgbbCalibrationFit.pdf')
+pdf(file = 'bgbbCalibrationFit.pdf')
 cal.fit <- bgbb.PlotFrequencyInCalibration(params, rf.matrix, 6)
 dev.off()
 @ 
 
 \begin{figure}
   \begin{center}
-  \includegraphics[width=0.6\textwidth]{figure/bgbbCalibrationFit}
+  \includegraphics[width=0.6\textwidth]{bgbbCalibrationFit}
   \caption{Calibration period fit of BG/BB model to the donations dataset.}\label{fig:bgbbCalibrationFit}
   \end{center}
 \end{figure}
@@ -1275,28 +1274,28 @@ by these plots describes the type of customers most firms would
 want---their transaction parameters are more likely to be high, and
 their dropout parameters are more likely to be low.
 
-<<fig.path="figure/", label="bgbbTransactionHeterogeneity", results="hide", include=FALSE>>=
-pdf(file = 'figure/bgbbTransactionHeterogeneity.pdf')
+<<fig.path="", label="bgbbTransactionHeterogeneity", results="hide", include=FALSE>>=
+pdf(file = 'bgbbTransactionHeterogeneity.pdf')
 bgbb.PlotTransactionRateHeterogeneity(params)
 dev.off()
 @ 
 
 \begin{figure}
   \begin{center}
-  \includegraphics[width=0.6\textwidth]{figure/bgbbTransactionHeterogeneity}
+  \includegraphics[width=0.6\textwidth]{bgbbTransactionHeterogeneity}
   \caption{Transaction rate heterogeneity of estimated parameters.}\label{fig:bgbbTransactionHeterogeneity}
   \end{center}
 \end{figure}
       
-<<fig.path="figure/", label="bgbbDropoutHeterogeneity", results="hide", include=FALSE>>=
-pdf(file = 'figure/bgbbDropoutHeterogeneity.pdf')
+<<fig.path="", label="bgbbDropoutHeterogeneity", results="hide", include=FALSE>>=
+pdf(file = 'bgbbDropoutHeterogeneity.pdf')
 bgbb.PlotDropoutRateHeterogeneity(params)
 dev.off()
 @ 
 
 \begin{figure}
   \begin{center}
-  \includegraphics[width=0.6\textwidth]{figure/bgbbDropoutHeterogeneity}
+  \includegraphics[width=0.6\textwidth]{bgbbDropoutHeterogeneity}
   \caption{Dropout rate heterogeneity of estimated parameters.}\label{fig:bgbbDropoutHeterogeneity}
   \end{center}
 \end{figure}
@@ -1377,10 +1376,10 @@ according to calibration period frequencies.
  
 \clearpage
 
-<<fig.path="figure/", label="bgbbCondExpComp", tidy=FALSE, echo=TRUE, size="small", fig.keep='none'>>=
+<<fig.path="", label="bgbbCondExpComp", tidy=FALSE, echo=TRUE, size="small", fig.keep='none'>>=
 n.star <- 5 # length of the holdout period
 x.star <- donationsSummary$x.star
-pdf(file = 'figure/bgbbCondExpComp.pdf')
+pdf(file = 'bgbbCondExpComp.pdf')
 comp <- bgbb.PlotFreqVsConditionalExpectedFrequency(params, n.star, 
                                                     rf.matrix, x.star)
 dev.off()
@@ -1390,7 +1389,7 @@ comp
 
 \begin{figure}
   \begin{center}
-  \includegraphics[width=0.6\textwidth]{figure/bgbbCondExpComp}
+  \includegraphics[width=0.6\textwidth]{bgbbCondExpComp}
   \caption{Actual vs. conditional expected transactions in the holdout period, binned by calibration period frequency.}\label{fig:bgbbCondExpComp}
   \end{center}
 \end{figure}
@@ -1399,8 +1398,8 @@ Since the BG/BB model uses discrete data, we can also bin customers by
 recency. Figure \ref{fig:bgbbCondExpCompRec} shows the fit of holdout
 period frequencies, with customers binned in this manner.
 
-<<fig.path="figure/", label="bgbbCondExpCompRec", tidy=FALSE, echo=TRUE, size="small", fig.keep='none'>>=
-pdf(file = 'figure/bgbbCondExpCompRec.pdf')
+<<fig.path="", label="bgbbCondExpCompRec", tidy=FALSE, echo=TRUE, size="small", fig.keep='none'>>=
+pdf(file = 'bgbbCondExpCompRec.pdf')
 comp <- bgbb.PlotRecVsConditionalExpectedFrequency(params, n.star, 
                                                    rf.matrix, x.star)
 dev.off()
@@ -1410,7 +1409,7 @@ comp
 
 \begin{figure}
   \begin{center}
-  \includegraphics[width=0.6\textwidth]{figure/bgbbCondExpCompRec}
+  \includegraphics[width=0.6\textwidth]{bgbbCondExpCompRec}
   \caption{Actual vs. conditional expected transactions in the holdout period, binned by calibration period recency.}\label{fig:bgbbCondExpCompRec}
   \end{center}
 \end{figure}
@@ -1423,11 +1422,11 @@ log; however, the process will be exactly the same as described in
 section \ref{subsec:pnbdPlotting}. The annual transaction data is
 provided by the package. 
 
-<<fig.path="figure/", label="bgbbTrackingInc", tidy=FALSE, echo=TRUE, fig.keep='none'>>=
+<<fig.path="", label="bgbbTrackingInc", tidy=FALSE, echo=TRUE, fig.keep='none'>>=
 inc.track.data <- donationsSummary$annual.trans
 n.cal <- 6
 xtickmarks <- 1996:2006
-pdf(file = 'figure/bgbbTrackingInc.pdf')
+pdf(file = 'bgbbTrackingInc.pdf')
 inc.tracking <- bgbb.PlotTrackingInc(params, rf.matrix, 
                                      inc.track.data, 
                                      xticklab = xtickmarks)
@@ -1438,7 +1437,7 @@ inc.tracking
 
 \begin{figure}
   \begin{center}
-  \includegraphics[width=0.6\textwidth]{figure/bgbbTrackingInc}
+  \includegraphics[width=0.6\textwidth]{bgbbTrackingInc}
   \caption{Actual vs. expected incremental purchasing behaviour.}\label{fig:bgbbTrackingInc}
   \end{center}
 \end{figure}
@@ -1447,9 +1446,9 @@ Figure \ref{fig:bgbbTrackingInc} shows remarkable fit, but we can
 smooth it out for a cleaner graph by making it cumulative (as shown in
 figure \ref{fig:bgbbTrackingCum}).
 
-<<fig.path="figure/", label="bgbbTrackingCum", tidy=FALSE, echo=TRUE, size="small", fig.keep='none'>>=
+<<fig.path="", label="bgbbTrackingCum", tidy=FALSE, echo=TRUE, size="small", fig.keep='none'>>=
 cum.track.data <- cumsum(inc.track.data)
-pdf(file = 'figure/bgbbTrackingCum.pdf')
+pdf(file = 'bgbbTrackingCum.pdf')
 cum.tracking <- bgbb.PlotTrackingCum(params, rf.matrix, cum.track.data, 
                                      xticklab = xtickmarks)
 dev.off()
@@ -1459,7 +1458,7 @@ cum.tracking
 
 \begin{figure}
   \begin{center}
-  \includegraphics[width=0.6\textwidth]{figure/bgbbTrackingCum}
+  \includegraphics[width=0.6\textwidth]{bgbbTrackingCum}
   \caption{Actual vs. expected cumulative purchasing behaviour.}\label{fig:bgbbTrackingCum}
   \end{center}
 \end{figure}
