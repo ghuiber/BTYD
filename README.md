@@ -16,24 +16,23 @@ threeway_walkthrough.R).
 
 ## How to install
 
-First `git clone`, then __build the standard way, not with the `devtools` kit.__
+First `git clone`. 
 
-So, at the command line, just do this:
+If you use `devtools`, then at the R console just call `document(); build(); install(build_vignettes = TRUE)`. Done.
+
+Otherwise, build the standard way in two steps:
+
+1. At the command line, build and check the source tarball:
 
 ```
 R CMD build BTYD2
-R CMD check BTYD2
+R CMD check BTYD2_2.4.1.tar.gz
 ```
 
-And then at the R console do this:
+2. Then, at the R console, install it:
 
 ```
 install.packages("BTYD2_2.4.tar.gz", repos = NULL, type = "source")
-system(paste('gunzip', file.path(.libPaths(), 'BTYD2', 'data', 'discreteSimElog.csv.gz')))
-system(paste('gunzip', file.path(.libPaths(), 'BTYD2', 'data', 'cdnowElog.csv.gz')))
 # works only in RStudio:
 .rs.restartR()
 ```
-
-That ought to work.
-
