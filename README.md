@@ -18,7 +18,7 @@ threeway_walkthrough.R).
 
 First `git clone`. 
 
-If you use `devtools`, then at the R console just call `document(); build(); install(build_vignettes = TRUE)`. Done.
+If you use [`devtools`](https://devtools.r-lib.org), then at the R console just call `document(); build(); install(build_vignettes = TRUE)`. Done.
 
 Otherwise, build the standard way in two steps:
 
