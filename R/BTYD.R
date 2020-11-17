@@ -1,5 +1,5 @@
-#' This project was funded and sponsored by the Wharton Customer Analytics
-#' Initiative (wcai.wharton.upenn.edu).
+#' This project was funded and sponsored by  
+#' [Wharton Customer Analytics](https://wca.wharton.upenn.edu).
 #' 
 #' This package implements the BG/BB, BG/NBD and Pareto/NBD models, which
 #' capture/project customer purchase patterns in a typical
@@ -102,7 +102,7 @@
 #' the holdout period; in the holdout period, we already know about the
 #' customer and take all of their previous transactions into account.
 #' 
-#' @references See \url{www.brucehardie.com} for papers, notes, and datasets relating to applied probability models in marketing.
+#' @references See \url{https://www.brucehardie.com} for papers, notes, and datasets relating to applied probability models in marketing.
 #' @references Fader, Peter S., and Bruce G.S. Hardie. \dQuote{A Note on Deriving the Pareto/NBD Model and Related Expressions.} November. 2005. Web. \url{http://www.brucehardie.com/notes/008/}
 #' @references Fader, Peter S., Bruce G.S. Hardie, and Ka L. Lee. \dQuote{RFM and CLV: Using Iso-Value Curves for Customer Base Analysis.} \emph{Journal of Marketing Research} Vol.42, pp.415-430. November. 2005. \url{http://www.brucehardie.com/papers.html}
 #' @references Fader, Peter S., and Bruce G.S. Hardie. \dQuote{Deriving an Expression for P (X(t) = x) Under the Pareto/NBD Model.} September. 2006. Web. \url{http://www.brucehardie.com/notes/012/}

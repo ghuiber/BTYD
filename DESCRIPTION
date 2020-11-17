@@ -13,7 +13,6 @@ Authors@R: c(person("Lukasz", "Dziurzynski", role="aut"),
              person("Yao", "Zhang", role="ctb"), 
              person("Gabi", "Huiber", role=c("ctb", "cre"), email="ghuiber@gmail.com"))
 Maintainer: Gabi Huiber <ghuiber@gmail.com>
-URL: ghuiber.github.io
 Description: Functions for data preparation, parameter 
     estimation, scoring, and plotting for the BG/BB, BG/NBD and Pareto/NBD models.
 License: GPL-3

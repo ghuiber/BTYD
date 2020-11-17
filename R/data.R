@@ -52,7 +52,7 @@
 #'   date of the transaction in the format "%Y%m%d" (e.g. 19970225), the number
 #'   of CDs purchased, and the dollar value of the transaction.
 #'
-#' @source Can be found [online](www.brucehardie.com/datasets).
+#' @source Can be found [online](https://www.brucehardie.com/datasets).
 #' @keywords datasets
 #' @name cdnowElog
 #' @md
