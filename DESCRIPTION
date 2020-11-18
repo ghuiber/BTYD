@@ -13,8 +13,10 @@ Authors@R: c(person("Lukasz", "Dziurzynski", role="aut"),
              person("Yao", "Zhang", role="ctb"), 
              person("Gabi", "Huiber", role=c("ctb", "cre"), email="ghuiber@gmail.com"))
 Maintainer: Gabi Huiber <ghuiber@gmail.com>
-Description: Functions for data preparation, parameter 
-    estimation, scoring, and plotting for the BG/BB, BG/NBD and Pareto/NBD models.
+Description: Functions for data preparation, parameter estimation, scoring, and plotting for the 
+    BG/BB  (https://doi.org/10.1287/mksc.1100.0580), 
+    BG/NBD (https://doi.org/10.1287/mksc.1040.0098) and 
+    Pareto/NBD (https://doi.org/10.1509/jmkr.2005.42.4.415) models.
 License: GPL-3
 Collate:
     'data.R'
