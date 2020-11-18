@@ -4,8 +4,8 @@
 \name{BTYD-package}
 \alias{BTYD}
 \alias{BTYD-package}
-\title{This project was funded and sponsored by the Wharton Customer Analytics
-Initiative (wcai.wharton.upenn.edu).}
+\title{This project was funded and sponsored by
+\href{https://wca.wharton.upenn.edu}{Wharton Customer Analytics}.}
 \description{
 This package implements the BG/BB, BG/NBD and Pareto/NBD models, which
 capture/project customer purchase patterns in a typical
@@ -110,7 +110,7 @@ the holdout period; in the holdout period, we already know about the
 customer and take all of their previous transactions into account.
 }
 \references{
-See \url{www.brucehardie.com} for papers, notes, and datasets relating to applied probability models in marketing.
+See \url{https://www.brucehardie.com} for papers, notes, and datasets relating to applied probability models in marketing.
 
 Fader, Peter S., and Bruce G.S. Hardie. \dQuote{A Note on Deriving the Pareto/NBD Model and Related Expressions.} November. 2005. Web. \url{http://www.brucehardie.com/notes/008/}
 
@@ -127,13 +127,6 @@ Jerath, Kinshuk, Peter S. Fader, and Bruce G.S. Hardie. \dQuote{Customer-Base An
 Fader, Peter S., Bruce G.S. Hardie, and Ka L. Lee. \dQuote{``Counting Your Customers'' the Easy Way: An Alternative to the Pareto/NBD Model.} \emph{Marketing Science} Vol.24, pp.275-284. Spring. 2005. \url{http://www.brucehardie.com/papers.html}
 
 Fader, Peter S., Hardie, Bruce G.S., and Lee, Ka Lok. \dQuote{Computing P(alive) Using the BG/NBD Model.} December. 2008. Web. \url{http://www.brucehardie.com/notes/021/palive_for_BGNBD.pdf}
-}
-\seealso{
-Useful links:
-\itemize{
-  \item \url{ghuiber.github.io}
-}
-
 }
 \author{
 \strong{Maintainer}: Gabi Huiber \email{ghuiber@gmail.com} [contributor]

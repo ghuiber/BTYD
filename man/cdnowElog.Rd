@@ -12,7 +12,7 @@ date of the transaction in the format "\%Y\%m\%d" (e.g. 19970225), the number
 of CDs purchased, and the dollar value of the transaction.
 }
 \source{
-Can be found \href{www.brucehardie.com/datasets}{online}.
+Can be found \href{https://www.brucehardie.com/datasets/}{online}.
 }
 \description{
 Data representing the purchasing behavior of 2,357 CDNOW customers between

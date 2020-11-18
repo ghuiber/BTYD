@@ -14,9 +14,9 @@ Authors@R: c(person("Lukasz", "Dziurzynski", role="aut"),
              person("Gabi", "Huiber", role=c("ctb", "cre"), email="ghuiber@gmail.com"))
 Maintainer: Gabi Huiber <ghuiber@gmail.com>
 Description: Functions for data preparation, parameter estimation, scoring, and plotting for the 
-    BG/BB  (https://doi.org/10.1287/mksc.1100.0580), 
-    BG/NBD (https://doi.org/10.1287/mksc.1040.0098) and 
-    Pareto/NBD (https://doi.org/10.1509/jmkr.2005.42.4.415) models.
+    BG/BB (Fader, Hardie, and Shang 2010 <doi:10.1287/mksc.1100.0580>), 
+    BG/NBD (Fader, Hardie, and Lee 2005 <doi:10.1287/mksc.1040.0098>) and 
+    Pareto/NBD and Gamma/Gamma (Fader, Hardie, and Lee 2005 <doi:10.1509/jmkr.2005.42.4.415>) models.
 License: GPL-3
 Collate:
     'data.R'
