@@ -34,7 +34,7 @@ file paths, libraries, etc. now point to their patched counterparts.
 
 The patched BTYD functions have been modified as follows: 
 \begin{itemize}
-\item Some functions stored in \texttt{R/pnbd.R} and in \texttt{R/bgnbd} 
+\item Some functions defined in \texttt{R/pnbd.R} and in \texttt{R/bgnbd.R} 
 (you can tell them by their names, which start with \texttt{pnbd} and \texttt{bgnbd} respectively) have been changed. 
 \item Some of these functions now take an extra logical argument, \texttt{hardie}; 
 if TRUE, this function (or a function it calls) uses Bruce Hardie's 
