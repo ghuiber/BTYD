@@ -177,11 +177,11 @@ bgnbd.LL <- function(params,
                      x, 
                      t.x, 
                      T.cal) {
-  bgnbd.generalParams(params, 
-                      'bgnbd.LL', 
-                      x, 
-                      t.x, 
-                      T.cal)$LL
+  bgnbd.generalParams(params = params, 
+                      func = 'bgnbd.LL', 
+                      x = x, 
+                      t.x = t.x, 
+                      T.cal = T.cal)$LL
 }
 
 #' BG/NBD Log-Likelihood Wrapper
@@ -415,13 +415,13 @@ bgnbd.ConditionalExpectedTransactions <- function(params,
                                                   t.x, 
                                                   T.cal, 
                                                   hardie = TRUE) {
-  bgnbd.generalParams(params, 
-                      'bgnbd.ConditionalExpectedTransactions', 
-                      x, 
-                      t.x, 
-                      T.cal, 
-                      T.star, 
-                      hardie)$CET
+  bgnbd.generalParams(params = params, 
+                      func = 'bgnbd.ConditionalExpectedTransactions', 
+                      x = x, 
+                      t.x = t.x, 
+                      T.cal = T.cal, 
+                      T.star = T.star, 
+                      hardie = hardie)$CET
 }
 
 #' BG/NBD Expectation
@@ -667,7 +667,11 @@ bgnbd.PAlive <- function(params,
                          x, 
                          t.x, 
                          T.cal) {
-  bgnbd.generalParams(params, 'bgnbd.PAlive', x, t.x, T.cal)$PAlive
+  bgnbd.generalParams(params = params, 
+                      func = 'bgnbd.PAlive', 
+                      x = x, 
+                      t.x = t.x, 
+                      T.cal = T.cal)$PAlive
 }
 
 #' BG/NBD Expected Cumulative Transactions
