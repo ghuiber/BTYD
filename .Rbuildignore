@@ -3,3 +3,5 @@ figure$
 \\.gitignore$
 ^doc$
 ^Meta$
+^CRAN-RELEASE$
+^cran-comments\.md$
