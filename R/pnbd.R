@@ -1606,15 +1606,17 @@ pnbd.PlotTrackingCum <- function(params,
                                  ylab = "Cumulative Transactions", 
                                  xticklab = NULL, 
                                  title = "Tracking Cumulative Transactions") {
-  # No use for inputs, other than as error check.
-  inputs <- try(dc.InputCheck(params = params, 
-                                func = "pnbd.PlotTrackingCum", 
-                                printnames = c("r", "alpha", "s", "beta"), 
-                                T.cal = T.cal, 
-                                T.tot = T.tot,
-                                actual.cu.tracking.data = actual.cu.tracking.data, 
-                                n.periods.final = n.periods.final))
+  # No use for inputs, other than as error check, so suppress
+  # any warnings about incompatible vector lengths here:
+  inputs <- suppressWarnings(try(dc.InputCheck(params = params, 
+                                               func = "pnbd.PlotTrackingCum", 
+                                               printnames = c("r", "alpha", "s", "beta"), 
+                                               T.cal = T.cal, 
+                                               T.tot = T.tot,
+                                               actual.cu.tracking.data = actual.cu.tracking.data, 
+                                               n.periods.final = n.periods.final)))
   if('try-error' == class(inputs)) return(str(inputs)$message)
+  inputs <- NULL
   if (length(T.tot) > 1) stop("T.tot must be a single numeric value and may not be negative.")
   
   actual <- actual.cu.tracking.data
@@ -1707,15 +1709,17 @@ pnbd.PlotTrackingInc <- function(params,
                                  ylab = "Transactions", 
                                  xticklab = NULL, 
                                  title = "Tracking Weekly Transactions") {
-  # No use for inputs, other than as error check.
-  inputs <- try(dc.InputCheck(params = params, 
-                                func = "pnbd.PlotTrackingInc", 
-                                printnames = c("r", "alpha", "s", "beta"), 
-                                T.cal = T.cal, 
-                                T.tot = T.tot,
-                                actual.inc.tracking.data = actual.inc.tracking.data, 
-                                n.periods.final = n.periods.final))
+  # No use for inputs, other than as error check, so suppress
+  # any warnings about incompatible vector lengths here:
+  inputs <- suppressWarnings(try(dc.InputCheck(params = params, 
+                                               func = "pnbd.PlotTrackingInc", 
+                                               printnames = c("r", "alpha", "s", "beta"), 
+                                               T.cal = T.cal, 
+                                               T.tot = T.tot,
+                                               actual.inc.tracking.data = actual.inc.tracking.data, 
+                                               n.periods.final = n.periods.final)))
   if('try-error' == class(inputs)) return(str(inputs)$message)
+  inputs <- NULL
   if (length(T.tot) > 1) stop("T.tot must be a single numeric value and may not be negative.")
   
   actual <- actual.inc.tracking.data
