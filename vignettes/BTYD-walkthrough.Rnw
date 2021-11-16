@@ -23,7 +23,7 @@ concordance=TRUE
 \maketitle %generate the title
 %\tableofcontents %insert the table of contents
 
-\section{Version 2.4.2 Overview}
+\section{Version 2.4.3 Overview}
 
 This version patches the Pareto/NBD component of BTYD 2.4 
 using the fix that Theo Strinopoulos proposed \href{https://github.com/theofilos/BTYD}{here}. 
@@ -32,7 +32,7 @@ Everything below this section reads identically to the vignette of
 BTYD 2.4. The main difference is that all evaluated references to BTYD 
 file paths, libraries, etc. now point to their patched counterparts. 
 
-The patched BTYD functions have been modified as follows: 
+As of version 2.4.1 the patched BTYD functions have been modified as follows: 
 \begin{itemize}
 \item Some functions defined in \texttt{R/pnbd.R} and in \texttt{R/bgnbd.R} 
 (you can tell them by their names, which start with \texttt{pnbd} and \texttt{bgnbd} respectively) have been changed. 
@@ -46,9 +46,13 @@ For the purposes of this vignette, this parameter is set globally as \texttt{all
 mirrors the choice of the BTYD package authors, who use Bruce Hardie's algorithm everywhere.
 \item Instead of \texttt{base::optim}, the \texttt{pnbd} functions use \texttt{optimx::optimx} and they 
 now allow you to pick your optimization method, using the \texttt{method} argument, which defaults to \texttt{L-BFGS-B} without any constraints, as in the original package.
-\item Some of the functions stored in \texttt{R/bgnbd.R} have been changed in order to implement the fix for the \texttt{NUM!} error problem proposed in \href{http://www.brucehardie.com/notes/027/bgnbd_num_error.pdf}{this note}. 
-\item As of version 2.4.2 the \texttt{hardie} argument defaults to TRUE with the exception of \texttt{bgnbd.generalParams} where it defaults to NULL.
+\item Some of the functions defined in \texttt{R/bgnbd.R} have been changed in order to implement the fix for the \texttt{NUM!} error problem proposed in \href{http://www.brucehardie.com/notes/027/bgnbd_num_error.pdf}{this note}. 
 \end{itemize}
+
+As of version 2.4.2 the \texttt{hardie} argument defaults to TRUE with the exception of \texttt{bgnbd.generalParams} where it defaults to NULL.
+
+Version 2.4.3 adds a fix to the \texttt{B1B2} component of the function \texttt{pnbd.pmf.General} defined in \texttt{R/pnbd.R} for a bug discovered by Patrik Schilter. The fix now specifies correctly the third parameter of the B2 function described by equation (24) \href{https://www.brucehardie.com/notes/013/Pareto_NBD_interval_pmf_rev.pdf}{here} as $r + s + x + 1$. The previous, incorrect version added the $i$ component from the first term.
+
 
 \section{Introduction}
 

@@ -1,7 +1,7 @@
 Package: BTYD
 Type: Package
 Title: Implementing BTYD Models with the Log Sum Exp Patch
-Version: 2.4.2
+Version: 2.4.3
 Authors@R: c(person("Lukasz", "Dziurzynski", role="aut"),
              person("Edward", "Wadsworth", role="aut"), 
              person("Peter", "Fader", role="ctb"), 
@@ -13,6 +13,7 @@ Authors@R: c(person("Lukasz", "Dziurzynski", role="aut"),
              person("Yao", "Zhang", role="ctb"), 
              person("Gabi", "Huiber", role=c("ctb", "cre"), email="ghuiber@gmail.com"))
 Maintainer: Gabi Huiber <ghuiber@gmail.com>
+BugReports: https://github.com/ghuiber/BTYD/issues
 Description: Functions for data preparation, parameter estimation, scoring, and plotting for the 
     BG/BB (Fader, Hardie, and Shang 2010 <doi:10.1287/mksc.1100.0580>), 
     BG/NBD (Fader, Hardie, and Lee 2005 <doi:10.1287/mksc.1040.0098>) and 
@@ -48,5 +49,5 @@ Author: Lukasz Dziurzynski [aut],
         Gabi Huiber [ctb, cre]
 NeedsCompilation: no
 Encoding: UTF-8
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 Roxygen: list(markdown = TRUE)

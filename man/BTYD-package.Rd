@@ -128,6 +128,13 @@ Fader, Peter S., Bruce G.S. Hardie, and Ka L. Lee. \dQuote{``Counting Your Custo
 
 Fader, Peter S., Hardie, Bruce G.S., and Lee, Ka Lok. \dQuote{Computing P(alive) Using the BG/NBD Model.} December. 2008. Web. \url{http://www.brucehardie.com/notes/021/palive_for_BGNBD.pdf}
 }
+\seealso{
+Useful links:
+\itemize{
+  \item Report bugs at \url{https://github.com/ghuiber/BTYD/issues}
+}
+
+}
 \author{
 \strong{Maintainer}: Gabi Huiber \email{ghuiber@gmail.com} [contributor]
 

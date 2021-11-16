@@ -660,7 +660,7 @@ pnbd.pmf.General <- function(params,
     
     a <- w
     b <- param2
-    c <- w + x + 1
+    c <- r + s + x + 1
     z <- absab/maxab
     den <- maxab^w
     if(hardie == TRUE) return(h2f1(a, b, c, z)/den)
