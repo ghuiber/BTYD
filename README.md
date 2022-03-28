@@ -1,4 +1,4 @@
-# BTYD 2.4.2
+# BTYD 2.4.3
 
 A patch for the `pnbd.LL()` function in the original [BTYD](https://CRAN.R-project.org/package=BTYD) package, 
 first proposed by [Theo Strinopoulos](https://github.com/theofilos). Now on [CRAN](https://CRAN.R-project.org/package=BTYD), 
@@ -27,13 +27,13 @@ Otherwise, build the standard way in two steps:
 
 ```
 R CMD build BTYD
-R CMD check BTYD_2.4.2.tar.gz
+R CMD check BTYD_2.4.3.tar.gz
 ```
 
 2. Then, at the R console, install it:
 
 ```
-install.packages("BTYD2_2.4.2.tar.gz", repos = NULL, type = "source")
+install.packages("BTYD2_2.4.3.tar.gz", repos = NULL, type = "source")
 # works only in RStudio:
 .rs.restartR()
 ```
