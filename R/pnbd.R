@@ -435,9 +435,8 @@ pnbd.cbs.LL <- function(params,
 #' Pareto/NBD parameters cannot be negative. The upper bound can be set with the
 #' max.param.value parameter.
 #'
-#' This function may take some time to run. Unlike the original BTYD package,
-#' this function uses \code{\link[optimx]{optimx}} instead of
-#' \code{\link[stats]{optim}} for maximum likelihood estimation.
+#' This function may take some time to run. It uses \code{\link[optimx]{optimx}} 
+#' for maximum likelihood estimation, not \code{\link[stats]{optim}}.
 #'
 #' @param cal.cbs calibration period CBS (customer by sufficient statistic). It
 #'   must contain columns for frequency ("x"), recency ("t.x"), and total time
@@ -463,7 +462,6 @@ pnbd.cbs.LL <- function(params,
 #' @return Unnamed vector of estimated parameters by default, \code{optimx}
 #'   object with everything if \code{hessian} is TRUE.
 #' @seealso \code{\link{pnbd.cbs.LL}}
-#' @seealso \url{https://www.ibm.com/developerworks/library/ba-optimR-john-nash/}
 #' @references Fader, Peter S.; Hardie, and Bruce G.S.. "Overcoming the BG/NBD
 #'   Model's #NUM! Error Problem." December. 2013. Web.
 #'   \url{http://brucehardie.com/notes/027/bgnbd_num_error.pdf}
